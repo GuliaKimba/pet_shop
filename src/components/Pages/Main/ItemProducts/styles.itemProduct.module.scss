@@ -77,3 +77,14 @@ color: aliceblue;
 }
 .product__name {
 }
+.item__products_btn{
+	background-color: #ffa426;
+	border: none;
+	color: aliceblue;
+	border-radius: 5px;
+	padding: 8px;
+	font-weight: 600;
+	&:hover{
+		cursor: pointer;
+	}
+}

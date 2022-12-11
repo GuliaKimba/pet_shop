@@ -37,7 +37,7 @@ export function ItemProducts({ pictures, price, discount, wight, name, tags }) {
         <div className={cn(stl.product__wight)}>{wight}</div>
         <div className={cn(stl.product__name)}>{name}</div>
 
-        <button type='button'>В корзину</button>
+        <button className={cn(stl.item__products_btn)} type='button'>В корзину</button>
       </div>
     </div>
   )

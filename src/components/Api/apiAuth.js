@@ -17,7 +17,7 @@ class ApiAuth {
         }),
       })
 
-      if (res.status !== 200) {
+      if (res.status !== 201) {
         throw Error()
       }
     } catch (err) {
@@ -37,6 +37,9 @@ class ApiAuth {
           password: `${password}`,
         }),
       })
+      if (res.status === 401) {
+        alert('Неправильные почта или пароль')
+      }
       if (res.status === 200) {
         const token = await res.json()
         console.log({ token })

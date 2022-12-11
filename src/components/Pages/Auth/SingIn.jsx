@@ -13,7 +13,7 @@ export function SingIn() {
     e.preventDefault()
     await apiAuthSingIn.singIn({ email, password })
 
-    return navigate('/profile')
+    return navigate('/')
   }
 
   console.log({ email })
