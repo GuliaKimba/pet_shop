@@ -1,0 +1,21 @@
+.logo {
+  display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+.logo__cnt_img {
+	border: none;
+	background: transparent;
+	cursor: pointer;
+}
+
+.logo__img {
+	width: 100px;
+}
+
+.logo__text {
+	font-size: 30px;
+	font-weight: 700;
+}

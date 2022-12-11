@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  max-width: 1300px;
+  margin: 0 auto;
+  flex-shrink: 0;
+}
+.footer__block_logo {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.copyright {
+  display: flex;
+  gap: 5px;
+  color: #222;
+}
+.copyright__img {
+  width: 10px;
+}
+.copyright__text {
+  font-size: 10px;
+}

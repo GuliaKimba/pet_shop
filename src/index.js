@@ -1,17 +1,67 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import './index.scss'
+import App from './App'
+import { Main } from './components/Pages/Main/Main'
+import { Auth } from './components/Pages/Auth/Auth'
+import { SingUp } from './components/Pages/Auth/SingUp'
+import { Test } from './components/Pages/Test'
+import { PrivateRoute, PrivateToken } from './PrivateRoute/index'
+import { SingInForm } from './components/Form/FormSingIn'
+import { SingIn } from './components/Pages/Auth/SingIn'
+import { Profile } from './components/Pages/UserPage/Profile'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const isMyToken = JSON.parse(localStorage.getItem('token'))
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        index: true,
+        element: (
+          <PrivateRoute>
+            <Main />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'profile/',
+        element: <Profile />,
+      },
+    ],
+  },
+  {
+    path: 'auth/',
+    element: <Auth />,
+  },
+  {
+    path: 'singup/',
+    element: <SingUp />,
+  },
+  {
+    path: 'singin/',
+    element: (
+      <PrivateToken>
+        <SingIn isMyToken={isMyToken} />
+      </PrivateToken>
+    ),
+  },
+
+  {
+    path: 'singintest/',
+    element: <SingInForm />,
+  },
+  {
+    path: 'test/',
+    element: <Test />,
+  },
+])
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+    <RouterProvider router={router} />
+  </React.StrictMode>,
+)

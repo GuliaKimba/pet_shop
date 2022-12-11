@@ -1,0 +1,53 @@
+.form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
+	p {
+		margin: 0;
+	}
+	//align-items: center;
+}
+.input__singup {
+	border: none;
+  outline: none;
+	border: 2px solid #ffa426;
+  border-radius: 5px;
+	min-height: 20px;
+	padding: 5px;
+  &:focus {
+    box-shadow: 1px 1px 10px 1px #ffa426;
+  }
+}
+.input__text {
+}
+.input__email {
+}
+.input__password {
+}
+
+.input__singin {
+	border: none;
+  outline: none;
+	border: 2px solid #fa6a8c;
+  border-radius: 5px;
+	min-height: 20px;
+	padding: 5px;
+  &:focus {
+    box-shadow: 1px 1px 10px 1px #fa6a8c;
+  }
+}
+
+.sing__btn {
+	background-color: #ffa426;
+  border: 0;
+  padding: 15px;
+  border-radius: 8px;
+  color: aliceblue;
+  font-weight: 700;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

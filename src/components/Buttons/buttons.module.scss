@@ -1,0 +1,64 @@
+.search__btn {
+  border: none;
+  background-color: #ffa426;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.favorites__btn {
+  background-color: transparent;
+  border: 0;
+  &:hover {
+    cursor: pointer;
+  }
+  img {
+    width: 35px;
+  }
+}
+
+.cart__btn {
+  background-color: transparent;
+  border: 0;
+  &:hover {
+    cursor: pointer;
+  }
+  img {
+    width: 35px;
+  }
+}
+
+.profile__btn {
+  background-color: transparent;
+  border: 0;
+  &:hover {
+    cursor: pointer;
+  }
+  img {
+    width: 35px;
+  }
+}
+
+.singup__btn {
+  background-color: #ffa426;
+  border: 0;
+  padding: 15px;
+  border-radius: 8px;
+  color: aliceblue;
+  font-weight: 700;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+.singin__btn {
+  background-color: #fa6a8c;
+  border: 0;
+  padding: 15px;
+  border-radius: 8px;
+  color: aliceblue;
+  font-weight: 700;
+  &:hover {
+    cursor: pointer;
+  }
+}
