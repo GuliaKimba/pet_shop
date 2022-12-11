@@ -73,7 +73,7 @@ export function SingupBtn() {
       onClick={navigateToSingUp}
       type='button'
       className={cn(stl.singup__btn)}>
-      Зарегистрироваться 11
+      Зарегистрироваться
     </button>
   )
 }
@@ -87,7 +87,7 @@ export function SinginBtn() {
       onClick={navigateToSingIn}
       type='button'
       className={cn(stl.singin__btn)}>
-      Войти 222
+      Войти
     </button>
   )
 }

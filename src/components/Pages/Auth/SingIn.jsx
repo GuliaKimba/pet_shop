@@ -48,7 +48,7 @@ export function SingIn() {
       <button
         className={cn(stl.sing__btn)}
         type='submit'>
-        Войти kk
+        Войти 
       </button>
     </form>
   )
