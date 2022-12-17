@@ -1,8 +1,15 @@
+.footer {
+  background-color: #f2f5f9;
+  width: 100vw;
+}
 .container {
   display: flex;
   max-width: 1300px;
   margin: 0 auto;
   flex-shrink: 0;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 40px 0;
 }
 .footer__block_logo {
   display: flex;
@@ -19,4 +26,37 @@
 }
 .copyright__text {
   font-size: 10px;
+}
+.footer__block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.footer__text {
+  font-size: 15px;
+}
+.footer__text_bolt {
+  font-weight: 600;
+  font-size: 18px;
+
+}
+.footer__phone_email {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+	a{
+		color: inherit;
+	}
+}
+
+.footer__block_contacs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer__social {
+  display: flex;
+  gap: 10px;
 }

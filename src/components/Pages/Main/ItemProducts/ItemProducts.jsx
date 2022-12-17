@@ -1,9 +1,25 @@
+import { useState, useEffect } from 'react'
 import cn from 'classnames'
-import stl from './styles.itemProduct.module.scss'
 
-export function ItemProducts({ pictures, price, discount, wight, name, tags }) {
+import stl from './styles.itemProduct.module.scss'
+import { apiToken } from '../../../Api/apiAuth'
+
+export function ItemProducts({ pictures, price, discount, wight, name, likes }) {
   const priceWithDiscount = price - (price * discount) / 100
-  console.log(tags)
+  const [like, setLike] = useState('')
+  const [userID, setUserID] = useState('')
+  const infoUserID = JSON.parse(localStorage.getItem('token'))
+
+  useEffect(() => {
+    apiToken
+      .getUserByToken(infoUserID)
+      .then((res) => res)
+      .then((resp) => setUserID(resp._id))
+  })
+  if (likes.includes(userID)) {
+    setLike(userID)
+  }
+  console.log({ like })
   return (
     <div className={cn(stl.item__cnt)}>
       {discount > 0 ? (
@@ -18,8 +34,9 @@ export function ItemProducts({ pictures, price, discount, wight, name, tags }) {
       <button
         className={cn(stl.favorites_btn, stl.add__favorites_btn)}
         aria-label='Добавить в избранное'
-        type='submit'
-      />
+        type='submit'>
+        {like}
+      </button>
       <div className={cn(stl.product__img)}>
         <img
           src={pictures}
@@ -37,7 +54,11 @@ export function ItemProducts({ pictures, price, discount, wight, name, tags }) {
         <div className={cn(stl.product__wight)}>{wight}</div>
         <div className={cn(stl.product__name)}>{name}</div>
 
-        <button className={cn(stl.item__products_btn)} type='button'>В корзину</button>
+        <button
+          className={cn(stl.item__products_btn)}
+          type='button'>
+          В корзину
+        </button>
       </div>
     </div>
   )

@@ -18,3 +18,6 @@ class ApiProducts {
   }
 }
 export const api = new ApiProducts('https://api.react-learning.ru/products')
+
+const apiprod = api.getAllProducts()
+console.log({apiprod});

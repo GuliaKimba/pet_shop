@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import './index.scss'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import './index.css'
 import App from './App'
 import { Main } from './components/Pages/Main/Main'
 import { Auth } from './components/Pages/Auth/Auth'
@@ -11,6 +12,8 @@ import { PrivateRoute, PrivateToken } from './PrivateRoute/index'
 import { SingInForm } from './components/Form/FormSingIn'
 import { SingIn } from './components/Pages/Auth/SingIn'
 import { Profile } from './components/Pages/UserPage/Profile'
+
+const queryClient = new QueryClient()
 
 const isMyToken = JSON.parse(localStorage.getItem('token'))
 const router = createBrowserRouter([
@@ -62,6 +65,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </React.StrictMode>,
 )

@@ -54,6 +54,24 @@ class ApiAuth {
     }
   }
 
+  async getUserByToken(JWT) {
+    try {
+      const res = await fetch(`${this.url}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${JWT}`,
+        },
+      })
+
+      if (res.status !== 200) {
+        throw Error()
+      }
+      return res.json()
+    } catch (err) {
+      throw Error(err)
+    }
+  }
+
   async getToken(JWT) {
     try {
       const res = await fetch(`${this.url}`, {
