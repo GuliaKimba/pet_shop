@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+
 import cn from 'classnames'
 import stl from './styles.singUpIn.module.scss'
-import { apiAuth } from '../../Api/apiAuth'
+import { registrationRequest } from '../../Api/apiAuth'
 
-export function SingUp() {
+const signUpUser = ({ group, email, password }) =>
+  registrationRequest.signUp({ group, email, password })
+
+export function SignUp() {
   const [group, setGroup] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -15,7 +20,14 @@ export function SingUp() {
   const [emailError, setEmailError] = useState('Поле Email не может быть пустым')
   const [passwordError, setPasswordError] = useState('Поле Пароль не может быть пустым')
   const [isFormVal, setIsFormVal] = useState(false)
+  const navigate = useNavigate()
 
+  const { mutateAsync } = useMutation({
+    mutationFn: signUpUser,
+    onSuccess: () => {
+      navigate('/signin')
+    },
+  })
   useEffect(() => {
     if (groupError || emailError || passwordError) {
       setIsFormVal(false)
@@ -23,7 +35,6 @@ export function SingUp() {
       setIsFormVal(true)
     }
   }, [groupError, emailError, passwordError])
-  const navigate = useNavigate()
 
   const blurHandler = (e) => {
     switch (e.target.name) {
@@ -74,17 +85,14 @@ export function SingUp() {
     }
   }
 
-  const handleSubmit = (e) => {
+  const hendlerSubmit = async (e) => {
     e.preventDefault()
-
-    apiAuth.singUp({ group, email, password })
-
-    return navigate('/singin')
+    await mutateAsync({ group, email, password })
   }
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={hendlerSubmit}
       name='singup_form'
       className={cn(stl.form)}>
       <div className={cn(stl.input__cnt)}>

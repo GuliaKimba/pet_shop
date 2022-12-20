@@ -1,23 +1,25 @@
+const URL_ALL_PRODUCTS = 'https://api.react-learning.ru/products'
+
 class ApiProducts {
   constructor(url) {
     this.url = url
   }
 
   async getAllProducts() {
-    try {
-      const res = await fetch(`${this.url}`, {
-        headers: {
-          authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzg5ZjRmZDU5Yjk4YjAzOGY3NzlkNmIiLCJncm91cCI6InNtOCIsImlhdCI6MTY3MDMzNTU0NSwiZXhwIjoxNzAxODcxNTQ1fQ.Sx6X4XiE_haLZ2G2SkJ9vSSnBRxpcNu4JpkXhYDWxps',
-        },
-      })
-      return res.json()
-    } catch (err) {
-      throw Error(err)
-    }
+    const JWT = JSON.parse(localStorage.getItem('token'))
+    const res = await fetch(`${this.url}`, {
+      headers: {
+        authorization: `Bearer ${JWT}`,
+      },
+    })
+    return res.json()
+  }
+
+  async addLikeProducts({ productId }) {
+    const res = await fetch(`${this.url}/likes:${productId}`, {
+      method: 'PUT',
+    })
+    return res.json()
   }
 }
-export const api = new ApiProducts('https://api.react-learning.ru/products')
-
-const apiprod = api.getAllProducts()
-console.log({apiprod});
+export const apiAllProducts = new ApiProducts(URL_ALL_PRODUCTS)

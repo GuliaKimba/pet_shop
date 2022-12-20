@@ -1,18 +1,32 @@
 import { useQuery } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import cn from 'classnames'
 import stl from './styles.listProducts.module.scss'
 import { ItemProducts } from '../ItemProducts/ItemProducts'
+import { apiAllProducts } from '../../../Api/apiProduct'
 
-const getAllProd = () =>
-  fetch('https://api.react-learning.ru/products', {
-    headers: {
-      authorization:
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhmMWMxMzU5Yjk4YjAzOGY3NzlkOWMiLCJncm91cCI6InNtOCIsImlhdCI6MTY3MTE4MzgzMywiZXhwIjoxNzAyNzE5ODMzfQ.iEOECqS2SMTZhS9geo8sZ0brjJnqqkDQe1JnjhL2Amg',
-    },
-  }).then((res) => res.json())
+export const PRODUCTS_QUERY_KEY = 'PRODUCTS_QUERY_KEY'
+
+const getAllProd = () => apiAllProducts.getAllProducts()
 
 export function ListProducts() {
-  const { data: response } = useQuery({ queryKey: ['products'], queryFn: getAllProd })
+  const {
+    data: response,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: [PRODUCTS_QUERY_KEY],
+    queryFn: getAllProd,
+  })
+
+  const navigate = useNavigate()
+
+  if (isLoading) return <div>Загрузка</div>
+
+  if (!response) return <div>Это ошибка </div>
+  if (isError) return <div>{error.message}</div>
+  if (response.err) return navigate('*')
 
   return (
     <div className={cn(stl.list__products)}>

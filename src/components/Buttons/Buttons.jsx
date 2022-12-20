@@ -66,7 +66,7 @@ export function ProfileBtn() {
 export function SingupBtn() {
   const navigate = useNavigate()
   const navigateToSingUp = () => {
-    navigate('/singup')
+    navigate('/signup')
   }
   return (
     <button
@@ -80,7 +80,7 @@ export function SingupBtn() {
 export function SinginBtn() {
   const navigate = useNavigate()
   const navigateToSingIn = () => {
-    navigate('/singin')
+    navigate('/signin')
   }
   return (
     <button

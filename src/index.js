@@ -1,21 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import './index.css'
 import App from './App'
 import { Main } from './components/Pages/Main/Main'
 import { Auth } from './components/Pages/Auth/Auth'
-import { SingUp } from './components/Pages/Auth/SingUp'
+import { SignUp } from './components/Pages/Auth/SignUp'
 import { Test } from './components/Pages/Test'
-import { PrivateRoute, PrivateToken } from './PrivateRoute/index'
+import { PrivateRoute } from './PrivateRoute/index'
 import { SingInForm } from './components/Form/FormSingIn'
-import { SingIn } from './components/Pages/Auth/SingIn'
+import { SignIn } from './components/Pages/Auth/SignIn'
 import { Profile } from './components/Pages/UserPage/Profile'
+import { NotFound } from './components/Pages/NotFound/NotFound'
 
 const queryClient = new QueryClient()
 
-const isMyToken = JSON.parse(localStorage.getItem('token'))
 const router = createBrowserRouter([
   {
     path: '/',
@@ -35,21 +35,18 @@ const router = createBrowserRouter([
       },
     ],
   },
+
   {
     path: 'auth/',
     element: <Auth />,
   },
   {
-    path: 'singup/',
-    element: <SingUp />,
+    path: 'signup/',
+    element: <SignUp />,
   },
   {
-    path: 'singin/',
-    element: (
-      <PrivateToken>
-        <SingIn isMyToken={isMyToken} />
-      </PrivateToken>
-    ),
+    path: 'signin/',
+    element: <SignIn />,
   },
 
   {
@@ -59,6 +56,14 @@ const router = createBrowserRouter([
   {
     path: 'test/',
     element: <Test />,
+  },
+  {
+    path: '404',
+    element: <NotFound />,
+  },
+  {
+    path: '*',
+    element: <Navigate to='404' />,
   },
 ])
 

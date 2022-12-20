@@ -28,11 +28,6 @@ module.exports = {
     'import/no-cycle': 0,
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/jsx-closing-bracket-location': 0,
-    'object-curly-newline': [
-      'error',
-      {
-        ObjectPattern: { multiline: false },
-      },
-    ],
+    'object-curly-newline': 0,
   },
 }

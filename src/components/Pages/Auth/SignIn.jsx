@@ -1,26 +1,31 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
 import cn from 'classnames'
 import stl from './styles.singUpIn.module.scss'
-import { apiAuthSingIn } from '../../Api/apiAuth'
+import { authorizationRequest } from '../../Api/apiAuth'
 
-export function SingIn() {
+const signInUser = ({ email, password }) => authorizationRequest.signIn({ email, password })
+
+export function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
-  const handleSubmit = async (e) => {
+  const { mutateAsync } = useMutation({
+    mutationFn: signInUser,
+    onSuccess: () => {
+      navigate('/')
+    },
+  })
+  const handlerSubmit = async (e) => {
     e.preventDefault()
-    await apiAuthSingIn.singIn({ email, password })
-
-    return navigate('/')
+    await mutateAsync({ email, password })
   }
-
-  console.log({ email })
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handlerSubmit}
       className={cn(stl.form)}>
       <div>
         <p>Электронная почта</p>

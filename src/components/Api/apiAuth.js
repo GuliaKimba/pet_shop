@@ -1,11 +1,14 @@
+const BASE_URL_AUTH = 'https://api.react-learning.ru'
+const BASE_URL_USER = 'https://api.react-learning.ru/v2/'
+
 class ApiAuth {
   constructor(url) {
     this.url = url
   }
 
-  async singUp({ group, email, password }) {
+  async signUp({ group, email, password }) {
     try {
-      const res = await fetch(`${this.url}`, {
+      const res = await fetch(`${this.url}/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -25,9 +28,9 @@ class ApiAuth {
     }
   }
 
-  async singIn({ email, password }) {
+  async signIn({ email, password }) {
     try {
-      const res = await fetch(`${this.url}`, {
+      const res = await fetch(`${this.url}/signin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -41,9 +44,10 @@ class ApiAuth {
         alert('Неправильные почта или пароль')
       }
       if (res.status === 200) {
-        const token = await res.json()
-        console.log({ token })
-        localStorage.setItem('token', JSON.stringify(token.token))
+        const resp = await res.json()
+        localStorage.setItem('token', JSON.stringify(resp.token))
+        localStorage.setItem('groupId', JSON.stringify(resp.data.group))
+        localStorage.setItem('userId', JSON.stringify(resp.data._id))
       }
 
       if (res.status !== 200) {
@@ -54,59 +58,21 @@ class ApiAuth {
     }
   }
 
-  async getUserByToken(JWT) {
-    try {
-      const res = await fetch(`${this.url}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${JWT}`,
-        },
-      })
+  async getUserByToken() {
+    const JWT = JSON.parse(localStorage.getItem('token'))
+    const groupId = JSON.parse(localStorage.getItem('groupId'))
+    const res = await fetch(`${this.url}${groupId}/users/me`, {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${JWT}`,
+      },
+    })
 
-      if (res.status !== 200) {
-        throw Error()
-      }
-      return res.json()
-    } catch (err) {
-      throw Error(err)
-    }
-  }
-
-  async getToken(JWT) {
-    try {
-      const res = await fetch(`${this.url}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${JWT}`,
-        },
-      })
-
-      if (res.status !== 200) {
-        throw Error()
-      }
-    } catch (err) {
-      throw Error(err)
-    }
-  }
-
-  async validateToken(token) {
-    try {
-      const res = await fetch(`${this.url}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${token}`,
-        },
-      })
-      return res.json()
-    } catch (err) {
-      throw Error(err)
-    }
+    return res.json()
   }
 }
 
-export const apiAuth = new ApiAuth('https://api.react-learning.ru/signup')
-export const apiAuthSingIn = new ApiAuth('https://api.react-learning.ru/signin')
-export const apiValidateToken = new ApiAuth('https://api.react-learning.ru/v2/sm8/users/me')
+export const registrationRequest = new ApiAuth(BASE_URL_AUTH)
+export const authorizationRequest = new ApiAuth(BASE_URL_AUTH)
+export const userRequest = new ApiAuth(BASE_URL_USER)
 export const apiToken = new ApiAuth('https://api.react-learning.ru/v2/sm8/users/me')
-
-console.log({ apiAuth })

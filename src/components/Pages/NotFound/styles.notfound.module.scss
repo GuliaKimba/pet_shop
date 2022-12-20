@@ -1,0 +1,11 @@
+.notfound {
+	display: flex;
+	flex-direction: column;
+  padding-top: 50px;
+	gap: 20px;
+}
+
+.notfound__text {
+  font-size: 30px;
+	font-weight: 600;
+}
