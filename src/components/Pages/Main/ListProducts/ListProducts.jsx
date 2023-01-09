@@ -4,20 +4,28 @@ import cn from 'classnames'
 import stl from './styles.listProducts.module.scss'
 import { ItemProducts } from '../ItemProducts/ItemProducts'
 import { apiAllProducts } from '../../../Api/apiProduct'
+import { useFilterContextData } from '../../../FilterContext/FilterContextProvider'
 
-export const PRODUCTS_QUERY_KEY = 'PRODUCTS_QUERY_KEY'
+export const PRODUCTS_QUERY_KEY = ['PRODUCTS_QUERY_KEY']
 
-const getAllProd = () => apiAllProducts.getAllProducts()
+export const getProductsQueryKey = (filters) => PRODUCTS_QUERY_KEY.concat(Object.values(filters))
+
+const getAllProd = (filters) => apiAllProducts.getAllProducts(filters)
 
 export function ListProducts() {
+  const filters = useFilterContextData()
+
   const {
     data: response,
     isLoading,
     isError,
     error,
   } = useQuery({
-    queryKey: [PRODUCTS_QUERY_KEY],
-    queryFn: getAllProd,
+    queryKey: getProductsQueryKey(filters),
+    queryFn: () =>
+      getAllProd({
+        query: filters.search,
+      }),
   })
 
   const navigate = useNavigate()

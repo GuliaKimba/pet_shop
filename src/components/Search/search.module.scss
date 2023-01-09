@@ -2,16 +2,18 @@
   display: flex;
   border: 2px solid #ffa426;
   border-radius: 8px;
-
+	justify-content: center;
+	align-items: center;
 }
 .search__input {
   border: none;
   outline: none;
   min-width: 600px;
   min-height: 30px;
-  border-radius: 8px 0px 0px 8px;
+  border-radius: 8px ;
 
   &:focus {
     box-shadow: 1px 1px 10px 1px #ffa426;
   }
 }
+

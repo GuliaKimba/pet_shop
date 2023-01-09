@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import cn from 'classnames'
 import stl from './buttons.module.scss'
 import search from './search.png'
@@ -33,15 +34,36 @@ export function FavoritesBtn() {
 }
 
 export function CartBtn() {
+  const navigate = useNavigate()
+
+  const { totalPrice, productsInCart } = useSelector((state) => state.cart)
+  const totalCount = productsInCart.reduce((sum, item) => sum + item.count, 0)
+
+  const navigateToPageCart = () => {
+    navigate('/cart')
+  }
+
   return (
-    <button
-      type='button'
-      className={cn(stl.cart__btn)}>
-      <img
-        src={cart}
-        alt='Корзина'
-      />
-    </button>
+    <div className={cn(stl.btn_container)}>
+      <button
+        onClick={navigateToPageCart}
+        type='button'
+        className={cn(stl.cart__btn)}>
+        <img
+          src={cart}
+          alt='Корзина'
+        />
+      </button>
+      <div className={cn(stl.btn__counter)}>
+        {productsInCart.length ? <div>{totalCount}</div> : null}
+        {totalPrice > 0 ? (
+          <div>
+            {totalPrice}
+            руб.
+          </div>
+        ) : null}
+      </div>
+    </div>
   )
 }
 

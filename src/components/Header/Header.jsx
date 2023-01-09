@@ -12,9 +12,9 @@ export function Header() {
         <Logo />
         <Search />
         <div className={cn(stl.header__block_btn)}>
+          <ProfileBtn />
           <FavoritesBtn />
           <CartBtn />
-          <ProfileBtn />
         </div>
       </div>
     </header>

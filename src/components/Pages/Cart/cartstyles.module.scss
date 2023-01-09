@@ -1,0 +1,29 @@
+.container {
+  background-color: #f7f8f9;
+  //display: flex;
+  //justify-content: center;
+}
+.cart__container {
+  display: flex;
+  //justify-content: start;
+  max-width: 1300px;
+  margin: 0 auto;
+  gap: 20px;
+}
+.cart__product {
+  display: flex;
+  flex-direction: column;
+}
+.cart__total {
+}
+.cart__product_header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+.cart__order {
+  display: flex;
+	gap: 20px;
+}
+.cart__block{}

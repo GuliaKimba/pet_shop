@@ -1,4 +1,4 @@
-const BASE_URL_AUTH = 'https://api.react-learning.ru'
+const BASE_URL_AUTH = 'https://api.react-learning.ru/'
 const BASE_URL_USER = 'https://api.react-learning.ru/v2/'
 
 class ApiAuth {
@@ -8,7 +8,7 @@ class ApiAuth {
 
   async signUp({ group, email, password }) {
     try {
-      const res = await fetch(`${this.url}/signup`, {
+      const res = await fetch(`${this.url}signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ class ApiAuth {
 
   async signIn({ email, password }) {
     try {
-      const res = await fetch(`${this.url}/signin`, {
+      const res = await fetch(`${this.url}signin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
