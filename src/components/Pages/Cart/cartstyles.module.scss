@@ -1,5 +1,12 @@
+.cart {
+	background-color: #f7f8f9;
+	flex: 1 1 auto;
+}
 .container {
-  background-color: #f7f8f9;
+
+  //display: flex;
+  //flex-direction: column;
+
   //display: flex;
   //justify-content: center;
 }
@@ -24,6 +31,7 @@
 }
 .cart__order {
   display: flex;
-	gap: 20px;
+  gap: 20px;
 }
-.cart__block{}
+.cart__block {
+}

@@ -11,12 +11,12 @@ export function Cart() {
   const items = useSelector((state) => state.cart.productsInCart)
 
   const { data: products } = useQuery({
-    queryKey: ['items'],
+    queryKey: ['itemsCart'].concat(items.map((item) => item._id)),
     queryFn: () => apiAllProducts.getProductsById(items.map((product) => product._id)),
   })
 
   return (
-    <div className={cn(stl.container)}>
+    <div className={cn(stl.cart)}>
       <div className={cn(stl.cart__container)}>
         {items.length > 0 ? (
           <div className={cn(stl.cart__product)}>
@@ -29,20 +29,20 @@ export function Cart() {
               <div className={cn(stl.cart_items)}>
                 {products?.map((product) => (
                   <CartItem
-                    {...items}
                     {...product}
                     key={product.created_at}
                   />
                 ))}
               </div>
               <div className={cn(stl.cart__block)}>
-                {products?.map((product) => (
+                <CartOrder {...products} />
+                {/* {products?.map((product) => (
                   <CartOrder
                     {...items}
                     {...product}
                     key={product.created_at}
                   />
-                ))}
+                ))} */}
               </div>
             </div>
           </div>

@@ -18,8 +18,15 @@ import { FilterContextProvider } from './components/FilterContext/FilterContextP
 import { Cart } from './components/Pages/Cart/Cart'
 import { store } from './redux/store'
 import { ProductPage } from './components/Pages/ProductPage/ProductPage'
+import { Favorite } from './components/Pages/Favorite/Favorite'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+})
 
 const router = createBrowserRouter([
   {
@@ -37,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: 'profile/',
         element: <Profile />,
+      },
+      {
+        path: 'favorite/',
+        element: <Favorite />,
       },
       {
         path: 'cart/',

@@ -1,0 +1,12 @@
+.favorite {
+  flex: 1 1 auto;
+}
+
+.favorite__container {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+	padding: 20px 0px;
+}

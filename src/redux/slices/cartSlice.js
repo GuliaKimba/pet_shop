@@ -5,7 +5,7 @@ const cartSlice = createSlice({
   initialState: {
     productsInCart: [],
     totalPrice: 0,
-    count: 1,
+    // count: 1,
   },
   reducers: {
     // addProductToCart: (state, action) => {
@@ -13,12 +13,14 @@ const cartSlice = createSlice({
     // },
     addProductToCart: (state, action) => {
       const findProduct = state.productsInCart.find((item) => item._id === action.payload._id)
+      console.log({ findProduct })
       if (findProduct) {
         findProduct.count += 1
       } else {
         state.productsInCart.push({
           ...action.payload,
           count: 1,
+          checkbox: true,
         })
       }
       state.totalPrice = state.productsInCart.reduce((sum, obj) => obj.price * obj.count + sum, 0)
@@ -47,8 +49,16 @@ const cartSlice = createSlice({
         findProduct.count -= 1
       }
     },
+    deleteCheckbox: (state, action) => {
+      const findProduct = state.productsInCart.find((item) => item._id === action.payload._id)
+      return findProduct.checkbox
+    },
   },
 })
 
-export const { addProductToCart, deleteProductFromCart, deleteOneItem } = cartSlice.actions
+export const {
+addProductToCart,
+deleteProductFromCart,
+deleteOneItem,
+deleteCheckbox } = cartSlice.actions
 export default cartSlice.reducer

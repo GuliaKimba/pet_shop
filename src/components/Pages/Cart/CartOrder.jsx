@@ -2,10 +2,13 @@ import cn from 'classnames'
 import { useSelector } from 'react-redux'
 import stl from './cartOrderStyles.module.scss'
 
-export function CartOrder({ ...product }) {
-  const items = useSelector((state) => state.cart.productsInCart)
+export function CartOrder() {
+  // const items = useSelector((state) => state.cart.productsInCart)
 
-  const h = items.find((el) => el._id === product._id)
+  const { totalPrice, productsInCart } = useSelector((state) => state.cart)
+  const totalCount = productsInCart.reduce((sum, item) => sum + item.count, 0)
+
+  // const h = items.find((el) => el._id === product._id)
   return (
     <div className={cn(stl.cart__order)}>
       <button
@@ -16,13 +19,13 @@ export function CartOrder({ ...product }) {
       <div className={cn(stl.our__cart)}>В Вашей корзине</div>
       <div>
         <div>
-          {h.count}
-          товар(ов)
+          {totalCount}
+          {' тов. '}
         </div>
         <div>
-          на сумму
-          {product.price * h.count}
-          руб
+          {'на сумму '}
+          {totalPrice}
+          {' руб. '}
         </div>
       </div>
     </div>

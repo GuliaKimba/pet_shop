@@ -1,13 +1,22 @@
+// import { useState } from 'react'
 import cn from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import stl from './cartItemStyles.module.scss'
-import { deleteProductFromCart, addProductToCart, deleteOneItem } from '../../../redux/cart/reducer'
+import {
+  deleteProductFromCart,
+  addProductToCart,
+  deleteOneItem,
+  // deleteCheckbox,
+} from '../../../redux/slices/cartSlice'
 
 export function CartItem({ ...product }) {
+  // const [check, setCheck] = useState(true)
   const dispatch = useDispatch()
-  const items = useSelector((state) => state.cart.productsInCart)
+  const { productsInCart } = useSelector((state) => state.cart)
 
-  const h = items.find((el) => el._id === product._id)
+  const h = productsInCart.find((el) => el._id === product._id)
+  console.log({ h })
+  console.log({ productsInCart })
 
   const handleClick = () => {
     if (window.confirm('Вы действительно хотите удалить продукт из корзины?')) {
@@ -28,7 +37,10 @@ export function CartItem({ ...product }) {
   return (
     <div className={cn(stl.cart__container)}>
       <div className={cn(stl.cart__item)}>
-        <input type='checkbox' />
+        <input
+          type='checkbox'
+          checked={product._id.checked}
+        />
         <div className={cn(stl.cart__img)}>
           <img
             src={product.pictures}
@@ -37,7 +49,7 @@ export function CartItem({ ...product }) {
         </div>
         <div className={cn(stl.cart__product_name)}>{product.name}</div>
         <div>
-          {product.price * h.count}
+          {product.price}
           руб.
         </div>
 
@@ -49,6 +61,7 @@ export function CartItem({ ...product }) {
             -
           </button>
           <div>{h.count}</div>
+          {/* <div>jjj</div> */}
           <button
             onClick={addItemClick}
             className={cn(stl.cart__btn)}

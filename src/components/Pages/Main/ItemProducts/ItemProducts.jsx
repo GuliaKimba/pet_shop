@@ -1,28 +1,45 @@
 // import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 
+import { useDispatch } from 'react-redux'
+import { useMutation } from '@tanstack/react-query'
 import cn from 'classnames'
 
 import stl from './styles.itemProduct.module.scss'
-import { addProductToCart } from '../../../../redux/cart/reducer'
+import { addProductToCart } from '../../../../redux/slices/cartSlice'
+import { AddFavorite, NoFavorite } from '../../../Buttons/Buttons'
+
+import { apiAllProducts } from '../../../Api/apiProduct'
+
+// const addLikeApi = (productId) => apiAllProducts.addLikeProducts(productId)
+const deleteLikeApi = (productId) => apiAllProducts.deleteLikeProducts(productId)
 
 export function ItemProducts({ ...item }) {
   const priceWithDiscount = item.price - (item.price * item.discount) / 100
-  // const navigate = useNavigate()
+
+  const userId = JSON.parse(localStorage.getItem('userId'))
+
+  const isLikeUser = item.likes.includes(userId)
+  const { mutateAsync } = useMutation({
+    mutationFn: deleteLikeApi,
+  })
+
+  // useEffect(() => {
+  //  const isLike = item.likes.includes(userId)
+  //  if (isLike) {
+  //    setIsLikeUser(isLike)
+  //  }
+  // }, [addLikeApi])
   const dispatch = useDispatch()
-  // const products = useSelector((state) => state.cart.productsInCart)
+  // const navigate = useNavigate()
 
-  // const isProductInCart = products.some((product) => product._id === item._id)
-
-  const handleClick = () => {
-    // e.stopPropagation()
-
-    dispatch(addProductToCart(item))
+  const handlerSubmit = async (e) => {
+    e.preventDefault()
+    await mutateAsync(item._id)
   }
 
-  // const handleClickOpen = () => {
-  //  navigate(`product/${item.name}`)
-  // }
+  const handleClick = () => {
+    dispatch(addProductToCart(item))
+  }
 
   return (
     <div className={cn(stl.item__cnt)}>
@@ -35,12 +52,19 @@ export function ItemProducts({ ...item }) {
         </button>
       ) : null}
 
-      <div className={cn(stl.product__img)}>
-        <img
-          src={item.pictures}
-          alt='Фото продукта'
-        />
-      </div>
+      <img
+        className={cn(stl.imgg)}
+        src={item.pictures}
+        alt='Фото продукта'
+      />
+
+      <button
+        onClick={handlerSubmit}
+        type='button'
+        className={cn(stl.like__cnt)}>
+        {isLikeUser ? <AddFavorite /> : <NoFavorite />}
+      </button>
+
       <div className={cn(stl.itemWr)}>
         {item.discount > 0 ? (
           <div className={cn(stl.current__price_line_through)}>{item.price}</div>

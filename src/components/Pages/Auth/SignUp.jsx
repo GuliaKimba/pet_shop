@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 import cn from 'classnames'
 import stl from './styles.singUpIn.module.scss'
 import { registrationRequest } from '../../Api/apiAuth'
+import { Logo } from '../../Logo/Logo'
 
 const signUpUser = ({ group, email, password }) =>
   registrationRequest.signUp({ group, email, password })
@@ -91,58 +92,61 @@ export function SignUp() {
   }
 
   return (
-    <form
-      onSubmit={hendlerSubmit}
-      name='singup_form'
-      className={cn(stl.form)}>
-      <div className={cn(stl.input__cnt)}>
-        <p>Ваша группа</p>
-        {groupEmpty && groupError && <div style={{ color: 'red' }}>{groupError}</div>}
-        <input
-          className={cn(stl.input__singup, stl.input__text)}
-          onChange={(e) => groupHendler(e)}
-          onBlur={(e) => blurHandler(e)}
-          value={group}
-          type='text'
-          id='singup_group'
-          name='group'
-        />
-      </div>
+    <div className={cn(stl.container)}>
+      <Logo />
+      <form
+        onSubmit={hendlerSubmit}
+        name='singup_form'
+        className={cn(stl.form)}>
+        <div className={cn(stl.input__cnt)}>
+          <p>Ваша группа</p>
+          {groupEmpty && groupError && <div style={{ color: 'red' }}>{groupError}</div>}
+          <input
+            className={cn(stl.input__singup, stl.input__text)}
+            onChange={(e) => groupHendler(e)}
+            onBlur={(e) => blurHandler(e)}
+            value={group}
+            type='text'
+            id='singup_group'
+            name='group'
+          />
+        </div>
 
-      <div className={cn(stl.input__cnt)}>
-        <p>Электронная почта</p>
-        {emailEmpty && emailError && <div style={{ color: 'red' }}>{emailError}</div>}
-        <input
-          className={cn(stl.input__singup, stl.input__email)}
-          onChange={(e) => emailHandler(e)}
-          onBlur={(e) => blurHandler(e)}
-          value={email}
-          type='email'
-          id='singup_email'
-          name='email'
-        />
-      </div>
+        <div className={cn(stl.input__cnt)}>
+          <p>Электронная почта</p>
+          {emailEmpty && emailError && <div style={{ color: 'red' }}>{emailError}</div>}
+          <input
+            className={cn(stl.input__singup, stl.input__email)}
+            onChange={(e) => emailHandler(e)}
+            onBlur={(e) => blurHandler(e)}
+            value={email}
+            type='email'
+            id='singup_email'
+            name='email'
+          />
+        </div>
 
-      <div className={cn(stl.input__cnt)}>
-        <p>Пароль</p>
-        {passwordEmpty && passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
-        <input
-          className={cn(stl.input__singup, stl.input__password)}
-          onChange={(e) => passwordHendler(e)}
-          onBlur={(e) => blurHandler(e)}
-          value={password}
-          type='password'
-          id='singup_password'
-          name='password'
-        />
-      </div>
+        <div className={cn(stl.input__cnt)}>
+          <p>Пароль</p>
+          {passwordEmpty && passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
+          <input
+            className={cn(stl.input__singup, stl.input__password)}
+            onChange={(e) => passwordHendler(e)}
+            onBlur={(e) => blurHandler(e)}
+            value={password}
+            type='password'
+            id='singup_password'
+            name='password'
+          />
+        </div>
 
-      <button
-        className={cn(stl.sing__btn)}
-        disabled={!isFormVal}
-        type='submit'>
-        Зарегистрироваться
-      </button>
-    </form>
+        <button
+          className={cn(stl.sing__btn, !isFormVal ? stl.noactive : '')}
+          disabled={!isFormVal}
+          type='submit'>
+          Зарегистрироваться
+        </button>
+      </form>
+    </div>
   )
 }

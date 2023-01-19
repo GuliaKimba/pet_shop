@@ -4,7 +4,7 @@
   padding: 20px 0;
   gap: 5px;
   position: relative;
-  flex: 1 1 auto;
+  // flex: 1 1 auto;
   flex-wrap: wrap;
 }
 .itemWr {
@@ -48,17 +48,26 @@ background-color: red;
 border: none;
 color: aliceblue;
 }
+.like__cnt{
+	//padding: 5px 10px;
+position: absolute;
+top: 10px;
+left: 200px;
+border: none;
+background: transparent;
+
+}
 .tags__new_btn{
 
 }
 
-.product__img {
-  img {
+
+  .imgg {
     width: 250px;
     height: 250px;
     object-fit: cover;
   }
-}
+
 .current__price {
   display: flex;
   flex: 1;
@@ -76,6 +85,7 @@ color: aliceblue;
 .product__wight {
 }
 .product__name {
+	max-width: 250px;
 }
 .item__products_btn{
 	background-color: #ffa426;
@@ -91,5 +101,5 @@ color: aliceblue;
 
 .cart__count {
 	display: flex;
-	
+
 }

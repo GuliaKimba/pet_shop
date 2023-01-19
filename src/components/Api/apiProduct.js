@@ -41,9 +41,24 @@ class ApiProducts {
     return res.json()
   }
 
-  async addLikeProducts({ productId }) {
-    const res = await fetch(`${this.url}/likes:${productId}`, {
+  async addLikeProducts(productId) {
+    const JWT = JSON.parse(localStorage.getItem('token'))
+    const res = await fetch(`${this.url}likes/${productId}`, {
       method: 'PUT',
+      headers: {
+        authorization: `Bearer ${JWT}`,
+      },
+    })
+    return res.json()
+  }
+
+  async deleteLikeProducts(productId) {
+    const JWT = JSON.parse(localStorage.getItem('token'))
+    const res = await fetch(`${this.url}likes/${productId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: `Bearer ${JWT}`,
+      },
     })
     return res.json()
   }

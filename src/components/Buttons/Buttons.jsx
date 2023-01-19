@@ -1,12 +1,17 @@
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+// import { useMutation } from '@tanstack/react-query'
 import cn from 'classnames'
 import stl from './buttons.module.scss'
 import search from './search.png'
 import favorites from './favorites.png'
 import cart from './cart.png'
 import profile from './profile.png'
+import favoritesBtn from './favoritesBtn.png'
+import addFavoritesBtn from './addfavoritesBtn.png'
+// import { apiAllProducts } from '../Api/apiProduct'
 
+// const addLikeApi = (productId) => apiAllProducts.addLikeProducts(productId)
 export function SearchBtn() {
   return (
     <button
@@ -21,8 +26,13 @@ export function SearchBtn() {
 }
 
 export function FavoritesBtn() {
+  const navigate = useNavigate()
+  const navigateToPageFavorite = () => {
+    navigate('/favorite')
+  }
   return (
     <button
+      onClick={navigateToPageFavorite}
       type='button'
       className={cn(stl.favorites__btn)}>
       <img
@@ -59,7 +69,7 @@ export function CartBtn() {
         {totalPrice > 0 ? (
           <div>
             {totalPrice}
-            руб.
+            {' руб. '}
           </div>
         ) : null}
       </div>
@@ -110,6 +120,45 @@ export function SinginBtn() {
       type='button'
       className={cn(stl.singin__btn)}>
       Войти
+    </button>
+  )
+}
+
+export function AddFavorite() {
+  // const navigate = useNavigate()
+
+  // const { mutateAsync } = useMutation({
+  //  mutationFn: addLikeApi,
+  //  onSuccess: () => {
+  //    navigate('/test')
+  //  },
+  // })
+  // const handlerSubmit = async (e) => {
+  //  e.preventDefault()
+  //  await mutateAsync(elem._id)
+  // }
+  return (
+    <button
+      // onClick={handlerSubmit}
+      className={cn(stl.like__btn)}
+      type='button'>
+      <img
+        src={favoritesBtn}
+        alt='Кнопка избранное'
+      />
+    </button>
+  )
+}
+
+export function NoFavorite() {
+  return (
+    <button
+      className={cn(stl.like__btn)}
+      type='button'>
+      <img
+        src={addFavoritesBtn}
+        alt='Кнопка избранное'
+      />
     </button>
   )
 }
