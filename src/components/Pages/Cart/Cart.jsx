@@ -21,7 +21,10 @@ export function Cart() {
         {items.length > 0 ? (
           <div className={cn(stl.cart__product)}>
             <div className={cn(stl.cart__product_header)}>
-              <input type='checkbox' />
+              <input
+                type='checkbox'
+                name='allSelect'
+              />
               <span>Выбрать все</span>
               <button type='button'>Удалить выбранные</button>
             </div>

@@ -1,11 +1,13 @@
 .item__cnt {
   display: flex;
   flex-direction: column;
-  padding: 20px 0;
+  padding: 25px;
   gap: 5px;
   position: relative;
   // flex: 1 1 auto;
   flex-wrap: wrap;
+  border: 0.5px solid rgb(228, 223, 223);
+  border-radius: 8px;
 }
 .itemWr {
   display: flex;
@@ -14,7 +16,7 @@
   flex: 1 1 auto;
 }
 .favorites_btn {
-	background-color: transparent;
+  background-color: transparent;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 30px;
@@ -30,43 +32,42 @@
   }
 }
 .add__favorites_btn {
-
   background-image: url('./addfavorites.png');
-
 }
 .delete__favorites_btn {
-background-image: url('./favorites.png');
+  background-image: url('./favorites.png');
+}
+.cnt__img {
+  cursor: pointer;
 }
 .tags__btn {
-
 }
 .tags__sale_btn {
-padding: 5px 10px;
-position: absolute;
-border-radius: 5px;
-background-color: red;
-border: none;
-color: aliceblue;
+  padding: 5px 10px;
+  position: absolute;
+  border-radius: 5px;
+  background-color: red;
+  border: none;
+  color: aliceblue;
+  left: 10px;
 }
-.like__cnt{
-	//padding: 5px 10px;
-position: absolute;
-top: 10px;
-left: 200px;
-border: none;
-background: transparent;
-
+.like__cnt {
+  //padding: 5px 10px;
+  position: absolute;
+  //top: 10px;
+  //left: 200px;
+  right: 5px;
+  border: none;
+  background: transparent;
 }
-.tags__new_btn{
-
+.tags__new_btn {
 }
 
-
-  .imgg {
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
-  }
+.imgg {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
 
 .current__price {
   display: flex;
@@ -85,21 +86,29 @@ background: transparent;
 .product__wight {
 }
 .product__name {
-	max-width: 250px;
+  max-width: 250px;
 }
-.item__products_btn{
-	background-color: #ffa426;
-	border: none;
-	color: aliceblue;
-	border-radius: 5px;
-	padding: 8px;
-	font-weight: 600;
-	&:hover{
-		cursor: pointer;
-	}
+.product__rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.rating__btn {
+  background: transparent;
+  border: none;
+}
+.item__products_btn {
+  background-color: #ffa426;
+  border: none;
+  color: aliceblue;
+  border-radius: 5px;
+  padding: 8px;
+  font-weight: 600;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .cart__count {
-	display: flex;
-
+  display: flex;
 }

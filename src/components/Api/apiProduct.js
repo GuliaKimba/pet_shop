@@ -15,6 +15,16 @@ class ApiProducts {
     return res.json()
   }
 
+  async getAllProductsForLike() {
+    const JWT = JSON.parse(localStorage.getItem('token'))
+    const res = await fetch(`${this.url}`, {
+      headers: {
+        authorization: `Bearer ${JWT}`,
+      },
+    })
+    return res.json()
+  }
+
   async getProductsById(ids) {
     const JWT = JSON.parse(localStorage.getItem('token'))
 
@@ -59,6 +69,30 @@ class ApiProducts {
       headers: {
         authorization: `Bearer ${JWT}`,
       },
+    })
+    return res.json()
+  }
+
+  async deleteMyProduct(productId) {
+    const JWT = JSON.parse(localStorage.getItem('token'))
+    const res = await fetch(`${this.url}${productId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: `Bearer ${JWT}`,
+      },
+    })
+    return res.json()
+  }
+
+  async addNewProduct(values) {
+    const JWT = JSON.parse(localStorage.getItem('token'))
+    const res = await fetch(`${this.url}`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        authorization: `Bearer ${JWT}`,
+      },
+      body: JSON.stringify(values),
     })
     return res.json()
   }

@@ -1,0 +1,30 @@
+.product_page {
+  flex: 1 1 auto;
+}
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 0;
+  //gap: 20px;
+}
+.product__page_detail {
+  display: flex;
+}
+.pictures {
+  display: flex;
+  position: relative;
+}
+.pictures__img {
+  width: 300px;
+}
+.like__cnt {
+  //padding: 5px 10px;
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  border: none;
+  background: transparent;
+  width: 30px;
+}

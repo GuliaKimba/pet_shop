@@ -6,6 +6,7 @@ import {
   deleteProductFromCart,
   addProductToCart,
   deleteOneItem,
+  deleteProductFromHeaderCart,
   // deleteCheckbox,
 } from '../../../redux/slices/cartSlice'
 
@@ -13,14 +14,21 @@ export function CartItem({ ...product }) {
   // const [check, setCheck] = useState(true)
   const dispatch = useDispatch()
   const { productsInCart } = useSelector((state) => state.cart)
+  const priceWithDiscount = product.price - (product.price * product.discount) / 100
 
   const h = productsInCart.find((el) => el._id === product._id)
-  console.log({ h })
-  console.log({ productsInCart })
+
+  const { stock } = product
 
   const handleClick = () => {
     if (window.confirm('Вы действительно хотите удалить продукт из корзины?')) {
       dispatch(deleteProductFromCart(product))
+    }
+  }
+
+  const handleClick1 = () => {
+    if (window.confirm('Вы действительно хотите удалить продукт из корзины?')) {
+      dispatch(deleteProductFromHeaderCart(product))
     }
   }
 
@@ -49,7 +57,7 @@ export function CartItem({ ...product }) {
         </div>
         <div className={cn(stl.cart__product_name)}>{product.name}</div>
         <div>
-          {product.price}
+          {priceWithDiscount * h.count}
           руб.
         </div>
 
@@ -64,6 +72,7 @@ export function CartItem({ ...product }) {
           {/* <div>jjj</div> */}
           <button
             onClick={addItemClick}
+            disabled={h.count >= stock}
             className={cn(stl.cart__btn)}
             type='button'>
             +
@@ -71,7 +80,7 @@ export function CartItem({ ...product }) {
         </div>
         <button
           className={cn(stl.cart__btn_delete)}
-          onClick={handleClick}
+          onClick={productsInCart.length > 1 ? handleClick : handleClick1}
           type='button'>
           Удалить
         </button>

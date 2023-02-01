@@ -21,6 +21,7 @@ export function Search() {
 
   useEffect(() => {
     setSearch(debounceValue)
+    debounceValue('')
   }, [debounceValue])
 
   return (

@@ -20,6 +20,8 @@ import { store } from './redux/store'
 import { ProductPage } from './components/Pages/ProductPage/ProductPage'
 import { Favorite } from './components/Pages/Favorite/Favorite'
 
+import { NewProductForm } from './components/Pages/NewProductForm/NewProductForm'
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -52,6 +54,14 @@ const router = createBrowserRouter([
       {
         path: 'cart/',
         element: <Cart />,
+      },
+      {
+        path: 'product/:_id',
+        element: <ProductPage />,
+      },
+      {
+        path: 'add-product',
+        element: <NewProductForm />,
       },
     ],
   },

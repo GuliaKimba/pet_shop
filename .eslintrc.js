@@ -32,5 +32,10 @@ module.exports = {
     'no-param-reassign': 0,
     'no-return-assign': 0,
     indent: 0,
+    'prefer-arrow-callback': 0,
+    'operator-assignment': 0,
+    'jsx-a11y/click-events-have-key-events': 0,
+    'jsx-a11y/no-static-element-interactions': 0,
+    'jsx-a11y/label-has-associated-control': 0,
   },
 }

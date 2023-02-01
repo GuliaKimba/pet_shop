@@ -7,6 +7,9 @@
 }
 
 .favorites__btn {
+  display: flex;
+  font-weight: 600;
+  font-size: 16px;
   background-color: transparent;
   border: 0;
   &:hover {
@@ -16,6 +19,9 @@
     width: 35px;
   }
 }
+//.favoritesBtnCount{
+//	font-weight: 700;
+//}
 
 .btn_container {
   display: flex;
@@ -31,7 +37,10 @@
     width: 35px;
   }
 }
-
+.btn__counter {
+  font-weight: 600;
+  font-size: 16px;
+}
 .profile__btn {
   background-color: transparent;
   border: 0;
@@ -68,11 +77,10 @@
 }
 
 .like__btn {
-
   background: transparent;
-border: none;
-cursor: pointer;
-img{
-	width: 30px;
-}
+  border: none;
+  cursor: pointer;
+  img {
+    width: 30px;
+  }
 }

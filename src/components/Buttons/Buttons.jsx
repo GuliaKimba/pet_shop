@@ -1,14 +1,20 @@
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-// import { useMutation } from '@tanstack/react-query'
+import { useDispatch, useSelector } from 'react-redux'
+import { useMutation } from '@tanstack/react-query'
 import cn from 'classnames'
 import stl from './buttons.module.scss'
 import search from './search.png'
-import favorites from './favorites.png'
+import unFavorites from './unFavorites.png'
 import cart from './cart.png'
 import profile from './profile.png'
 import favoritesBtn from './favoritesBtn.png'
 import addFavoritesBtn from './addfavoritesBtn.png'
+import logout from './logout.png'
+import addProduct from './addProduct.png'
+import { apiAllProducts } from '../Api/apiProduct'
+import { addLike, deleteLike } from '../../redux/likesSlice/likesSlice'
+
 // import { apiAllProducts } from '../Api/apiProduct'
 
 // const addLikeApi = (productId) => apiAllProducts.addLikeProducts(productId)
@@ -27,6 +33,7 @@ export function SearchBtn() {
 
 export function FavoritesBtn() {
   const navigate = useNavigate()
+  const userLikes = useSelector((state) => state.likes.usersLike)
   const navigateToPageFavorite = () => {
     navigate('/favorite')
   }
@@ -36,9 +43,12 @@ export function FavoritesBtn() {
       type='button'
       className={cn(stl.favorites__btn)}>
       <img
-        src={favorites}
+        src={userLikes.length > 0 ? favoritesBtn : unFavorites}
         alt='Избранное'
       />
+      <div className={cn(stl.favoritesBtnCount)}>
+        {userLikes.length > 0 ? userLikes.length : null}
+      </div>
     </button>
   )
 }
@@ -48,6 +58,14 @@ export function CartBtn() {
 
   const { totalPrice, productsInCart } = useSelector((state) => state.cart)
   const totalCount = productsInCart.reduce((sum, item) => sum + item.count, 0)
+
+  useEffect(() => {
+    const jsonCart = JSON.stringify(productsInCart)
+    const jsonPrice = JSON.stringify(totalPrice)
+
+    localStorage.setItem('cart', jsonCart)
+    localStorage.setItem('totalPrice', jsonPrice)
+  }, [productsInCart])
 
   const navigateToPageCart = () => {
     navigate('/cart')
@@ -73,6 +91,47 @@ export function CartBtn() {
           </div>
         ) : null}
       </div>
+    </div>
+  )
+}
+
+export function AddProductBtn() {
+  const navigate = useNavigate()
+  const clickHandler = () => {
+    navigate('/add-product')
+  }
+  return (
+    <div>
+      <button
+        onClick={clickHandler}
+        className={cn(stl.cart__btn)}
+        type='button'>
+        <img
+          src={addProduct}
+          alt='Добавить товар'
+        />
+      </button>
+    </div>
+  )
+}
+
+export function LogOut() {
+  const navigate = useNavigate()
+  const clickHandler = () => {
+    localStorage.clear()
+    navigate('/auth')
+  }
+  return (
+    <div>
+      <button
+        onClick={clickHandler}
+        className={cn(stl.cart__btn)}
+        type='button'>
+        <img
+          src={logout}
+          alt='Выйти из системы'
+        />
+      </button>
     </div>
   )
 }
@@ -124,7 +183,7 @@ export function SinginBtn() {
   )
 }
 
-export function AddFavorite() {
+export function AddFavorite({ ...item }) {
   // const navigate = useNavigate()
 
   // const { mutateAsync } = useMutation({
@@ -137,9 +196,24 @@ export function AddFavorite() {
   //  e.preventDefault()
   //  await mutateAsync(elem._id)
   // }
+
+  const dispatch = useDispatch()
+
+  // useEffect(() => {
+  //  dispatch(fetchLikes())
+  // }, [dispatch])
+  const deleteLikeApi = (productId) => apiAllProducts.deleteLikeProducts(productId)
+  const { mutateAsync } = useMutation({
+    mutationFn: deleteLikeApi,
+  })
+  const handlerSubmit = async (e) => {
+    e.preventDefault()
+    await mutateAsync(item._id)
+    dispatch(deleteLike())
+  }
   return (
     <button
-      // onClick={handlerSubmit}
+      onClick={handlerSubmit}
       className={cn(stl.like__btn)}
       type='button'>
       <img
@@ -150,9 +224,25 @@ export function AddFavorite() {
   )
 }
 
-export function NoFavorite() {
+export function NoFavorite({ ...item }) {
+  const dispatch = useDispatch()
+  const addLikeApi = (productId) => apiAllProducts.addLikeProducts(productId)
+  // useEffect(() => {
+  //  dispatch(fetchLikes())
+  // }, [dispatch])
+
+  const { mutateAsync } = useMutation({
+    mutationFn: addLikeApi,
+  })
+  const handlerSubmit = async (e) => {
+    e.preventDefault()
+    await mutateAsync(item._id)
+    dispatch(addLike())
+  }
+
   return (
     <button
+      onClick={handlerSubmit}
       className={cn(stl.like__btn)}
       type='button'>
       <img
