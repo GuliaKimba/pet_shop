@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import cn from 'classnames'
 // import { Sort } from '../../Sort/Sort'
@@ -8,8 +8,7 @@ import stl from './styles.main.module.scss'
 
 import { ListProducts } from './ListProducts/ListProducts'
 import { apiAllProducts } from '../../Api/apiProduct'
-import { Sort } from '../../Sort/Sort'
-import { useSort } from './ListProducts/useSort'
+
 import { MySort } from '../../MySort/MySort'
 
 export const PRODUCTS_QUERY_KEY = ['PRODUCTS_QUERY_KEY']
@@ -18,6 +17,10 @@ export const getProductsQueryKey = (filters) => PRODUCTS_QUERY_KEY.concat(Object
 
 const getAllProd = (filters) => apiAllProducts.getAllProducts(filters)
 export const categorys = [
+  {
+    id: 'default',
+    title: 'По умолчанию',
+  },
   {
     id: 'cheap',
     title: 'Сначала дешёвые',
@@ -30,10 +33,19 @@ export const categorys = [
     id: 'discount',
     title: 'С максимальной скидкой',
   },
+  {
+    id: 'new',
+    title: 'Новинки',
+  },
+  {
+    id: 'popular',
+    title: 'По популярности',
+  },
 ]
 
 export function Main() {
   const [currentSort, setCurrentSort] = useState('')
+  const [searchParams, setSearchParams] = useSearchParams()
   const filters = useFilterContextData()
 
   const {
@@ -56,7 +68,7 @@ export function Main() {
   }, [response])
   console.log({ n })
   console.log({ items })
-  const { sortPrice, setSortPrice, sortedProducts } = useSort(n)
+
   if (isLoading) return <div>Загрузка</div>
 
   if (!response) return <div>Это ошибка </div>
@@ -65,16 +77,30 @@ export function Main() {
 
   const getSort = (current) => {
     setCurrentSort(current)
+    if (current === 'default') {
+      setItems(items.sort((a, b) => new Date(a.created_at) - new Date(b.created_at)))
+    }
     if (current === 'cheap') {
-      setItems(items.sort((a, b) => a.price - b.price))
+      setItems(items.sort((a, b) => (a.price > b.price ? 1 : -1)))
     }
     if (current === 'expensive') {
       setItems(items.sort((a, b) => b.price - a.price))
     }
     if (current === 'discount') {
-      setItems(items.sort((a, b) => a.discount - b.discount))
+      setItems(items.sort((a, b) => b.discount - a.discount))
     }
+    if (current === 'new') {
+      setItems(items.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)))
+    }
+    if (current === 'popular') {
+      setItems(items.sort((a, b) => b.likes.length - a.likes.length))
+    }
+    setSearchParams({
+      ...Object.fromEntries(searchParams.entries()),
+      sort: current,
+    })
   }
+
   return (
     <div className={cn(stl.main, stl.container)}>
       <MySort
@@ -82,10 +108,7 @@ export function Main() {
         categorys={categorys}
         getSort={getSort}
       />
-      <Sort
-        sortPrice={sortPrice}
-        setSortPrice={setSortPrice}
-      />
+
       <ListProducts items={items} />
     </div>
   )

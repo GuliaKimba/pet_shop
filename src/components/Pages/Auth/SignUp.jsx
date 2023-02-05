@@ -4,11 +4,11 @@ import { useMutation } from '@tanstack/react-query'
 
 import cn from 'classnames'
 import stl from './styles.singUpIn.module.scss'
-import { registrationRequest } from '../../Api/apiAuth'
+import { authorizationRequest } from '../../Api/apiAuth'
 import { Logo } from '../../Logo/Logo'
 
 const signUpUser = ({ group, email, password }) =>
-  registrationRequest.signUp({ group, email, password })
+  authorizationRequest.signUp({ group, email, password })
 
 export function SignUp() {
   const [group, setGroup] = useState('')
@@ -91,6 +91,9 @@ export function SignUp() {
     await mutateAsync({ group, email, password })
   }
 
+  const clickHandler = () => {
+    navigate('signin')
+  }
   return (
     <div className={cn(stl.container)}>
       <Logo />
@@ -138,6 +141,10 @@ export function SignUp() {
             id='singup_password'
             name='password'
           />
+        </div>
+        <div>
+          Уже зарегистрированы?
+          <span onClick={() => clickHandler()}>Войти</span>
         </div>
 
         <button

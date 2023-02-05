@@ -1,32 +1,51 @@
+import { useQuery } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import cn from 'classnames'
 import stl from './commentStyles.module.scss'
 
-export function Comment({ ...el }) {
-  const { rating } = el
-  let userRating
+import { apiAllProducts } from '../Api/apiProduct'
+import { CommentDetail } from './CommentDetail'
+import { AddComment } from './AddComment'
 
-  if (rating === 1) {
-    userRating = <button type='button'> ⭐ ☆ ☆ ☆ ☆</button>
-  } else if (rating === 2) {
-    userRating = <button type='button'> ⭐ ⭐ ☆ ☆ ☆</button>
-  } else if (rating === 3) {
-    userRating = <button type='button'> ⭐ ⭐ ⭐ ☆ ☆</button>
-  } else if (rating === 4) {
-    userRating = <button type='button'> ⭐ ⭐ ⭐ ⭐ ☆</button>
-  } else if (rating === 5) {
-    userRating = <button type='button'> ⭐ ⭐ ⭐ ⭐ ⭐</button>
-  } else {
-    userRating = <button type='button'> ☆ ☆ ☆ ☆ ☆</button>
-  }
+export function Comment({ ...item }) {
+  console.log({ item })
+  console.log(item?._id)
+  const getReviews = () => apiAllProducts.getAllReview(item._id)
+  const navigate = useNavigate()
+
+  const {
+    data: product,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ['currentReviews'],
+    queryFn: () => getReviews(item._id),
+  })
+
+  if (isLoading) return <div>Загрузка</div>
+
+  if (!product) return <div>Это ошибка </div>
+  if (isError) return <div>{error.message}</div>
+  if (product.err) return navigate('*')
+  console.log({ product })
+
   return (
-    <div>
-      <div className={cn(stl.rating__btn)}>{userRating}</div>
-      <div>{el.author}</div>
-      <div>
-        {'Отзыв создан: '}
-        {el.created_at}
-      </div>
-      <div>{el.text}</div>
+    <div className={cn(stl.container)}>
+      <div className={cn(stl.title)}>Отзывы покупателей:</div>
+      <AddComment {...item} />
+      {item?.reviews.length >= 1 ? (
+        <div className={cn(stl.reviews)}>
+          {product?.map((el) => (
+            <CommentDetail
+              key={el.created_at}
+              {...el}
+            />
+          ))}
+        </div>
+      ) : (
+        <div>У товара еще нет отзывов</div>
+      )}
     </div>
   )
 }

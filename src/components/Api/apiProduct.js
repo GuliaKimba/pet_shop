@@ -96,5 +96,29 @@ class ApiProducts {
     })
     return res.json()
   }
+
+  async getAllReview(productID) {
+    const JWT = JSON.parse(localStorage.getItem('token'))
+    const res = await fetch(`${this.url}review/${productID}`, {
+      headers: {
+        authorization: `Bearer ${JWT}`,
+      },
+    })
+    return res.json()
+  }
+
+  async addNewReview(values) {
+    const JWT = JSON.parse(localStorage.getItem('token'))
+    const res = await fetch(`${this.url}review/:productId`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        authorization: `Bearer ${JWT}`,
+      },
+      body: JSON.stringify(values),
+    })
+    return res.json()
+  }
 }
+
 export const apiAllProducts = new ApiProducts(URL_ALL_PRODUCTS)

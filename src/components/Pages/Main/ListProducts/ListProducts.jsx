@@ -4,8 +4,8 @@
 import cn from 'classnames'
 import stl from './styles.listProducts.module.scss'
 import { ItemProducts } from '../ItemProducts/ItemProducts'
-//import { useSort } from './useSort'
-//import { useSort } from './useSort'
+// import { useSort } from './useSort'
+// import { useSort } from './useSort'
 
 // import { useSort } from './useSort'
 // import { apiAllProducts } from '../../../Api/apiProduct'
@@ -19,9 +19,9 @@ import { ItemProducts } from '../ItemProducts/ItemProducts'
 // onst getAllProd = (filters) => apiAllProducts.getAllProducts(filters)
 
 export function ListProducts({ items }) {
-  //console.log({ response })
-  //const a = response.products
-  //console.log({ a })
+  // console.log({ response })
+  // const a = response.products
+  // console.log({ a })
 
   // const [items, setItems] = useState([])
   // const prod = all ? all.products : items
@@ -47,7 +47,7 @@ export function ListProducts({ items }) {
 
   // const all = response?.products
 
-  //const { sortPrice, setSortPrice, sortedProducts } = useSort(a)
+  // const { sortPrice, setSortPrice, sortedProducts } = useSort(a)
 
   // if (isLoading) return <div>Загрузка</div>
 
@@ -57,12 +57,9 @@ export function ListProducts({ items }) {
 
   return (
     <div className={cn(stl.list__products)}>
-      {/*<button
-        type='button'
-				onClick={() => setSortPrice(!sortPrice)}
-			>
+      {/* <button type='button' onClick={() => setSortPrice(!sortPrice)}>
         сортировка по
-      </button>*/}
+      </button> */}
       {items?.map((item) => (
         <ItemProducts
           key={item.created_at}

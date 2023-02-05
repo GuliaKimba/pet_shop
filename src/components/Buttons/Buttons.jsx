@@ -57,6 +57,10 @@ export function CartBtn() {
   const navigate = useNavigate()
 
   const { totalPrice, productsInCart } = useSelector((state) => state.cart)
+  const allPrice = productsInCart.reduce(
+    (sum, item) => sum + (item.price - (item.price * item.discount) / 100) * item.count,
+    0,
+  )
   const totalCount = productsInCart.reduce((sum, item) => sum + item.count, 0)
 
   useEffect(() => {
@@ -84,9 +88,9 @@ export function CartBtn() {
       </button>
       <div className={cn(stl.btn__counter)}>
         {productsInCart.length ? <div>{totalCount}</div> : null}
-        {totalPrice > 0 ? (
+        {allPrice > 0 ? (
           <div>
-            {totalPrice}
+            {allPrice}
             {' руб. '}
           </div>
         ) : null}

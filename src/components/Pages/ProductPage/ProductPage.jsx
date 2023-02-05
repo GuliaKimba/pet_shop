@@ -55,6 +55,8 @@ export function ProductPage() {
   if (!item) return <div>Это ошибка </div>
   if (isError) return <div>{error.message}</div>
   if (item.err) return navigate('*')
+
+  console.log({ item })
   const priceWithDiscount = item.price - (item.price * item.discount) / 100
 
   const handleClick = () => {
@@ -134,12 +136,13 @@ export function ProductPage() {
           </div>
         </div>
         <div className={cn(stl.comment)}>
-          {item.reviews.map((el) => (
+          {/* {item.reviews.map((el) => (
             <Comment
               key={el.created_at}
               {...el}
             />
-          ))}
+          ))} */}
+          <Comment {...item} />
         </div>
       </div>
     </div>

@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  max-width: 700px;
+  flex-direction: column;
+  gap: 5px;
+}
+.name {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.img {
+  img {
+    width: 50px;
+  }
+}
+
+
+
+.discription {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.rating___cnt {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+//.rating {
+//  display: flex;
+//  align-items: center;
+//  gap: 20px;
+//}
+//.created{
+//	display: flex;
+//	align-items: center;
+//}
+
+.comment__btn{
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	img{
+		width: 20px;
+	}
+}

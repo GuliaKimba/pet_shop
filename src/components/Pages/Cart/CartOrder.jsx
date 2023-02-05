@@ -3,12 +3,19 @@ import { useSelector } from 'react-redux'
 import stl from './cartOrderStyles.module.scss'
 
 export function CartOrder() {
-  // const items = useSelector((state) => state.cart.productsInCart)
+  const { productsInCart } = useSelector((state) => state.cart)
+  const arr = productsInCart.filter((item) => item.checkbox === true)
+  // let { price } = productsInCart
+  // if (productsInCart.discount > 0) {
+  //  price = productsInCart.price - (productsInCart.price * productsInCart.discount) / 100
+  // }
+  console.log({ arr })
+  const myArr = arr.reduce(
+    (sum, item) => sum + (item.price - (item.price * item.discount) / 100) * item.count,
+    0,
+  )
+  const myCount = arr.reduce((sum, item) => sum + item.count, 0)
 
-  const { totalPrice, productsInCart } = useSelector((state) => state.cart)
-  const totalCount = productsInCart.reduce((sum, item) => sum + item.count, 0)
-
-  // const h = items.find((el) => el._id === product._id)
   return (
     <div className={cn(stl.cart__order)}>
       <button
@@ -16,15 +23,16 @@ export function CartOrder() {
         type='button'>
         Оформить заказ
       </button>
-      <div className={cn(stl.our__cart)}>В Вашей корзине</div>
+      <div className={cn(stl.our__cart)}>Выбрано</div>
       <div>
         <div>
-          {totalCount}
+          {myCount}
           {' тов. '}
         </div>
         <div>
           {'на сумму '}
-          {totalPrice}
+
+          {myArr}
           {' руб. '}
         </div>
       </div>

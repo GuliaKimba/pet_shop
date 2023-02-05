@@ -1,8 +1,16 @@
-.rating__btn {
-	button {
-		background: transparent;
-		border: none;
-		cursor: pointer;
-	}
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	padding-top: 20px;
+}
+.reviews{
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
 
+.title{
+	font-size: 18px;
+	font-weight: 600;
 }

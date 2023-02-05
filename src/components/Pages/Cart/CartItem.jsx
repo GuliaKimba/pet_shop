@@ -1,4 +1,5 @@
 // import { useState } from 'react'
+
 import cn from 'classnames'
 import { useDispatch, useSelector } from 'react-redux'
 import stl from './cartItemStyles.module.scss'
@@ -7,11 +8,13 @@ import {
   addProductToCart,
   deleteOneItem,
   deleteProductFromHeaderCart,
+  addCheckbox,
+  // changeCheckbox,
   // deleteCheckbox,
 } from '../../../redux/slices/cartSlice'
 
 export function CartItem({ ...product }) {
-  // const [check, setCheck] = useState(true)
+  // const [checked, setChecked] = useState(true)
   const dispatch = useDispatch()
   const { productsInCart } = useSelector((state) => state.cart)
   const priceWithDiscount = product.price - (product.price * product.discount) / 100
@@ -42,12 +45,20 @@ export function CartItem({ ...product }) {
     dispatch(deleteOneItem(h._id))
   }
 
+  const changeCheck = () => {
+    // setChecked(!checked)
+    // dispatch(changeCheckbox(product))
+    dispatch(addCheckbox(product._id))
+  }
+
   return (
     <div className={cn(stl.cart__container)}>
       <div className={cn(stl.cart__item)}>
         <input
+          onChange={() => changeCheck()}
+          name={product.name}
           type='checkbox'
-          checked={product._id.checked}
+          checked={h.checkbox}
         />
         <div className={cn(stl.cart__img)}>
           <img
@@ -55,6 +66,7 @@ export function CartItem({ ...product }) {
             alt='Фото продукта'
           />
         </div>
+        {/* <label htmlFor={product.name}>{product.name}</label> */}
         <div className={cn(stl.cart__product_name)}>{product.name}</div>
         <div>
           {priceWithDiscount * h.count}
