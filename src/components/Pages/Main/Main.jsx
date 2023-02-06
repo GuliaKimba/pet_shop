@@ -2,13 +2,10 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import cn from 'classnames'
-// import { Sort } from '../../Sort/Sort'
 import { useFilterContextData } from '../../FilterContext/FilterContextProvider'
 import stl from './styles.main.module.scss'
-
 import { ListProducts } from './ListProducts/ListProducts'
 import { apiAllProducts } from '../../Api/apiProduct'
-
 import { MySort } from '../../MySort/MySort'
 
 export const PRODUCTS_QUERY_KEY = ['PRODUCTS_QUERY_KEY']
@@ -66,10 +63,8 @@ export function Main() {
   useEffect(() => {
     setItems(n)
   }, [response])
-  console.log({ n })
-  console.log({ items })
 
-  if (isLoading) return <div>Загрузка</div>
+  if (isLoading) return <div className={cn(stl.loading)}>Загрузка</div>
 
   if (!response) return <div>Это ошибка </div>
   if (isError) return <div>{error.message}</div>

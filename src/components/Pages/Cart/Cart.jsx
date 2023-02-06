@@ -4,9 +4,9 @@ import { useQuery } from '@tanstack/react-query'
 import cn from 'classnames'
 import stl from './cartstyles.module.scss'
 import { apiAllProducts } from '../../Api/apiProduct'
-import { CartItem } from './CartItem'
-import { CartOrder } from './CartOrder'
-import { EmptyCart } from './EmptyCart'
+import { CartItem } from './CartItem/CartItem'
+import { CartOrder } from './CartOrder/CartOrder'
+import { EmptyCart } from './EmptyCart/EmptyCart'
 import {
   deleteSelectCheck,
   noToggleAllCheckbox,
@@ -20,8 +20,6 @@ export function Cart() {
 
   const items = useSelector((state) => state.cart.productsInCart)
   const { checkAll } = useSelector((state) => state.cart)
-
-  console.log({ items })
 
   const { data: products } = useQuery({
     queryKey: ['itemsCart'].concat(items.map((item) => item._id)),
@@ -67,22 +65,11 @@ export function Cart() {
                     {...product}
                     setIsAllCheck={setIsAllCheck}
                     key={product.created_at}
-
-                    // checked={checked}
-                    // setChecked={setChecked}
-                    // isAllCheck={isAllCheck}
                   />
                 ))}
               </div>
               <div className={cn(stl.cart__block)}>
                 <CartOrder {...products} />
-                {/* {products?.map((product) => (
-                  <CartOrder
-                    {...items}
-                    {...product}
-                    key={product.created_at}
-                  />
-                ))} */}
               </div>
             </div>
           </div>

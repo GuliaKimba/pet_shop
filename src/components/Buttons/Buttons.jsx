@@ -15,9 +15,6 @@ import addProduct from './addProduct.png'
 import { apiAllProducts } from '../Api/apiProduct'
 import { addLike, deleteLike } from '../../redux/likesSlice/likesSlice'
 
-// import { apiAllProducts } from '../Api/apiProduct'
-
-// const addLikeApi = (productId) => apiAllProducts.addLikeProducts(productId)
 export function SearchBtn() {
   return (
     <button
@@ -58,7 +55,7 @@ export function CartBtn() {
 
   const { totalPrice, productsInCart } = useSelector((state) => state.cart)
   const allPrice = productsInCart.reduce(
-    (sum, item) => sum + (item.price - (item.price * item.discount) / 100) * item.count,
+    (sum, item) => sum + Math.round(item.price - (item.price * item.discount) / 100) * item.count,
     0,
   )
   const totalCount = productsInCart.reduce((sum, item) => sum + item.count, 0)
@@ -188,24 +185,8 @@ export function SinginBtn() {
 }
 
 export function AddFavorite({ ...item }) {
-  // const navigate = useNavigate()
-
-  // const { mutateAsync } = useMutation({
-  //  mutationFn: addLikeApi,
-  //  onSuccess: () => {
-  //    navigate('/test')
-  //  },
-  // })
-  // const handlerSubmit = async (e) => {
-  //  e.preventDefault()
-  //  await mutateAsync(elem._id)
-  // }
-
   const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //  dispatch(fetchLikes())
-  // }, [dispatch])
   const deleteLikeApi = (productId) => apiAllProducts.deleteLikeProducts(productId)
   const { mutateAsync } = useMutation({
     mutationFn: deleteLikeApi,
@@ -231,9 +212,6 @@ export function AddFavorite({ ...item }) {
 export function NoFavorite({ ...item }) {
   const dispatch = useDispatch()
   const addLikeApi = (productId) => apiAllProducts.addLikeProducts(productId)
-  // useEffect(() => {
-  //  dispatch(fetchLikes())
-  // }, [dispatch])
 
   const { mutateAsync } = useMutation({
     mutationFn: addLikeApi,

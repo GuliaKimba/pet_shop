@@ -43,9 +43,10 @@ export function NewProductForm() {
                 .positive('Цена должна быть больше 0')
                 .truncate()
                 .required('Обязательно для заполнения'),
+              pictures: Yup.string().required('Обязательно для заполнения'),
               description: Yup.string()
                 .min(5, 'Минимум 5 символов')
-                .max(100, 'Максимум 100 символов')
+                .max(200, 'Максимум 200 символов')
                 .required('Обязательно для заполнения'),
             })}
             onSubmit={(values) => {
@@ -55,6 +56,7 @@ export function NewProductForm() {
             <Form className={cn(stl.form)}>
               <label htmlFor='name'>Наименование</label>
               <Field
+                className={cn(stl.field)}
                 name='name'
                 type='text'
               />
@@ -65,43 +67,65 @@ export function NewProductForm() {
               />
               <label htmlFor='price'>Цена</label>
               <Field
+                className={cn(stl.field)}
                 name='price'
                 type='number'
               />
-              <ErrorMessage name='price' />
+              <ErrorMessage
+                component='span'
+                className={cn(stl.error)}
+                name='price'
+              />
               <label htmlFor='wight'>Вес </label>
               <Field
+                className={cn(stl.field)}
                 name='wight'
                 type='text'
               />
               <label htmlFor='discount'>Скидка</label>
               <Field
+                className={cn(stl.field)}
                 name='discount'
                 type='number'
               />
               <label htmlFor='stock'>Количество</label>
               <Field
+                className={cn(stl.field)}
                 name='stock'
                 type='number'
               />
               <label htmlFor='pictures'>Изображение</label>
               <Field
+                className={cn(stl.field)}
                 name='pictures'
                 type='text'
               />
-              <ErrorMessage name='pictures' />
+              <ErrorMessage
+                component='span'
+                className={cn(stl.error)}
+                name='pictures'
+              />
               <label htmlFor='description'>Описание товара</label>
               <Field
+                className={cn(stl.field)}
                 name='description'
                 as='textarea'
               />
-              <ErrorMessage name='description' />
+              <ErrorMessage
+                component='span'
+                className={cn(stl.error)}
+                name='description'
+              />
               <label htmlFor='available'>Вывести в продажу</label>
               <Field
                 name='available'
                 type='checkbox'
               />
-              <button type='submit'>Создать</button>
+              <button
+                className={cn(stl.formik__btn)}
+                type='submit'>
+                Создать
+              </button>
             </Form>
           </Formik>
         </div>

@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import cn from 'classnames'
-import stl from './styles.singUpIn.module.scss'
-import { authorizationRequest } from '../../Api/apiAuth'
-import { Logo } from '../../Logo/Logo'
+import stl from './signInStyles.module.scss'
+import { authorizationRequest } from '../../../Api/apiAuth'
+import { Logo } from '../../../Logo/Logo'
 
 const signInUser = ({ email, password }) => authorizationRequest.signIn({ email, password })
 
@@ -68,6 +68,10 @@ export function SignIn() {
     }
   }
 
+  const handlerSignUp = () => {
+    navigate('/signup')
+  }
+
   const handlerSubmit = async (e) => {
     e.preventDefault()
     await mutateAsync({ email, password })
@@ -86,7 +90,6 @@ export function SignIn() {
           )}
           <input
             className={cn(stl.input__singin, stl.input__email)}
-            // onChange={(e) => setEmail(e.target.value)}
             value={email}
             type='email'
             name='email'
@@ -105,7 +108,6 @@ export function SignIn() {
           )}
           <input
             className={cn(stl.input__singin, stl.input__password)}
-            // onChange={(e) => setPassword(e.target.value)}
             value={password}
             type='password'
             name='password'
@@ -114,7 +116,7 @@ export function SignIn() {
             id='singin_password'
           />
         </div>
-
+        <div onClick={handlerSignUp} className={cn(stl.navigate)}>Зарегистрироваться</div>
         <button
           className={cn(stl.sing__btn, !isFormValid ? stl.noactive : '')}
           disabled={!isFormValid}

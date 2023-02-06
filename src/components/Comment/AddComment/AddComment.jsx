@@ -3,13 +3,12 @@ import { useParams } from 'react-router-dom'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import cn from 'classnames'
-import stl from './addCommentStyles.scss'
-// import { apiAllProducts } from '../Api/apiProduct'
+import stl from './addCommentStyles.module.scss'
 
 export function AddComment() {
   const params = useParams()
   const idProd = params._id
-  console.log({ idProd })
+
   async function addNewReview(values) {
     const JWT = JSON.parse(localStorage.getItem('token'))
     const res = await fetch(`https://api.react-learning.ru/products/review/${idProd}`, {
@@ -22,7 +21,6 @@ export function AddComment() {
     })
     return res.json()
   }
-  // const addNewReviewFetch = (values) => apiAllProducts.addNewReview(values)
 
   const { mutateAsync } = useMutation({
     mutationFn: addNewReview,
@@ -30,7 +28,7 @@ export function AddComment() {
       console.log('OK')
     },
   })
-  console.log({ mutateAsync })
+
   const handlerSubmit = async (values) => {
     await mutateAsync(values)
   }
@@ -39,48 +37,45 @@ export function AddComment() {
       <Formik
         initialValues={{
           text: '',
-          rating: '',
         }}
         validationSchema={Yup.object({
           text: Yup.string()
             .min(5, 'Минимум 5 символов')
             .max(200, 'Максимум 30 символов')
             .required('Обязательно для заполнения'),
-          rating: Yup.number()
-
-            // .positive('Цена должна быть больше 0')
-            // .truncate()
-            .required('Обязательно для заполнения'),
         })}
         onSubmit={(values) => {
-          console.log({ values })
           handlerSubmit(values)
         }}>
         <Form className={cn(stl.form)}>
-          <label htmlFor='text'>Наименование</label>
-          <Field
-            name='text'
-            type='text'
-          />
-          <ErrorMessage
-            component='span'
-            className={cn(stl.error)}
-            name='text'
-          />
-          <label htmlFor='rating'>Рейтинг</label>
-          <Field
-            as='select'
-            name='rating'>
-            <option value='1'>1</option>
-            <option value='2'>2</option>
-            <option value='3'>3</option>
-            <option value='4'>4</option>
-            <option value='5'>5</option>
-          </Field>
+          {/* <label htmlFor='text'>Комментарий</label> */}
+          <div className={cn(stl.review)}>
+            <Field
+              className={cn(stl.field)}
+              name='text'
+              as='textarea'
+              placeholder='Отзыв'
+            />
+            <ErrorMessage
+              component='span'
+              className={cn(stl.error)}
+              name='text'
+            />
+          </div>
+          <div className={cn(stl.rating)}>
+            <label htmlFor='rating'>Рейтинг</label>
 
-          <ErrorMessage name='rating' />
-
-          <button type='submit'>Отправить отзыв</button>
+            <Field
+              as='select'
+              name='rating'>
+              <option value='1'>1</option>
+              <option value='2'>2</option>
+              <option value='3'>3</option>
+              <option value='4'>4</option>
+              <option value='5'>5</option>
+            </Field>
+          </div>
+          <button className={cn(stl.add__comment_btn)} type='submit'>Отправить отзыв</button>
         </Form>
       </Formik>
     </div>

@@ -7,7 +7,7 @@ export function CommentDetail({ ...el }) {
   const userId = JSON.parse(localStorage.getItem('userId'))
 
   const myId = el.author._id
-  console.log({ myId })
+
   const { rating } = el
   let userRating
   if (rating === 1) {
@@ -41,7 +41,9 @@ export function CommentDetail({ ...el }) {
         </div>
         <div>
           {userId === myId ? (
-            <button className={cn(stl.comment__btn)} type='button'>
+            <button
+              className={cn(stl.comment__btn)}
+              type='button'>
               <img
                 src={trash}
                 alt='Удалить'
@@ -51,7 +53,9 @@ export function CommentDetail({ ...el }) {
         </div>
         <div>
           {userId === myId ? (
-            <button className={cn(stl.comment__btn)} type='button'>
+            <button
+              className={cn(stl.comment__btn)}
+              type='button'>
               <img
                 src={edit}
                 alt='Редактировать'

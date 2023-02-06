@@ -16,8 +16,6 @@
   }
 }
 
-
-
 .discription {
   display: flex;
   align-items: center;
@@ -28,21 +26,12 @@
   align-items: center;
   gap: 20px;
 }
-//.rating {
-//  display: flex;
-//  align-items: center;
-//  gap: 20px;
-//}
-//.created{
-//	display: flex;
-//	align-items: center;
-//}
 
-.comment__btn{
-	background: transparent;
-	border: none;
-	cursor: pointer;
-	img{
-		width: 20px;
-	}
+.comment__btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  img {
+    width: 20px;
+  }
 }

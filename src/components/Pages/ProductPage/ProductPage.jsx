@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import cn from 'classnames'
-
 import { apiAllProducts } from '../../Api/apiProduct'
 import stl from './productPageStyle.module.scss'
 import { AddFavorite, NoFavorite } from '../../Buttons/Buttons'
@@ -13,6 +12,7 @@ import { fetchLikes } from '../../../redux/likesSlice/likesSlice'
 
 export function ProductPage() {
   const [userLike, setUserLike] = useState(false)
+
   const dispatch = useDispatch()
   const params = useParams()
   const navigate = useNavigate()
@@ -38,12 +38,12 @@ export function ProductPage() {
   })
 
   const productId = item?._id
-  console.log({ productId })
+
   const userId = JSON.parse(localStorage.getItem('userId'))
-  console.log({ userId })
+
   const isLikeUser = item?.likes.includes(userId)
   const itemUserId = item?.author._id
-  console.log({ itemUserId })
+
   useEffect(() => {
     setUserLike(isLikeUser)
   }, [dispatch])
@@ -56,8 +56,7 @@ export function ProductPage() {
   if (isError) return <div>{error.message}</div>
   if (item.err) return navigate('*')
 
-  console.log({ item })
-  const priceWithDiscount = item.price - (item.price * item.discount) / 100
+  const priceWithDiscount = Math.round(item.price - (item.price * item.discount) / 100)
 
   const handleClick = () => {
     dispatch(addProductToCart(item))
@@ -75,7 +74,6 @@ export function ProductPage() {
     e.preventDefault()
     await mutateAsync(productId)
   }
-  // const isLikeUser = item.likes.includes(userId)
 
   return (
     <div className={cn(stl.product_page)}>
@@ -96,10 +94,25 @@ export function ProductPage() {
 
           <div className={cn(stl.product__info)}>
             <div className={cn(stl.product__name)}>{item.name}</div>
-            <div className={cn(stl.product__price)}>
-              {priceWithDiscount}
-              {' руб.'}
-            </div>
+
+            {item.discount > 0 ? (
+              <div className={cn(stl.current__price_line_through)}>
+                {item.price}
+                {' руб.'}
+              </div>
+            ) : null}
+            {item.discount > 0 ? (
+              <div className={cn(stl.current__price_red)}>
+                {priceWithDiscount}
+                {' руб.'}
+              </div>
+            ) : (
+              <div className={cn(stl.current__price)}>
+                {item.price}
+                {' руб.'}
+              </div>
+            )}
+
             <div className={cn(stl.wight)}>
               {'В упаковке: '}
               {item.wight}
@@ -118,9 +131,9 @@ export function ProductPage() {
                 </button>
                 <button
                   onClick={handlerSubmit}
-                  className={cn(stl.item__products_btn)}
+                  className={cn(stl.item__products_btn_delete)}
                   type='button'>
-                  Удалить
+                  удалить
                 </button>
               </div>
             ) : (
@@ -136,12 +149,6 @@ export function ProductPage() {
           </div>
         </div>
         <div className={cn(stl.comment)}>
-          {/* {item.reviews.map((el) => (
-            <Comment
-              key={el.created_at}
-              {...el}
-            />
-          ))} */}
           <Comment {...item} />
         </div>
       </div>

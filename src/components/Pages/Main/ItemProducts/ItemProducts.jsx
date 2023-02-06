@@ -11,9 +11,6 @@ export function ItemProducts({ ...item }) {
   const [userLike, setUserLike] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  // const params = useParams()
-
-  // const productName = params.name
 
   const productRating = item.reviews.reduce((sum, obj) => obj.rating + sum, 0)
 
@@ -77,7 +74,7 @@ export function ItemProducts({ ...item }) {
     )
   }
 
-  const priceWithDiscount = item.price - (item.price * item.discount) / 100
+  const priceWithDiscount = Math.round(item.price - (item.price * item.discount) / 100)
 
   const userId = JSON.parse(localStorage.getItem('userId'))
 

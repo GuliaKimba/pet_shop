@@ -4,7 +4,7 @@
   padding: 25px;
   gap: 5px;
   position: relative;
-  // flex: 1 1 auto;
+
   flex-wrap: wrap;
   border: 0.5px solid rgb(228, 223, 223);
   border-radius: 8px;
@@ -52,10 +52,9 @@
   left: 10px;
 }
 .like__cnt {
-  //padding: 5px 10px;
+
   position: absolute;
-  //top: 10px;
-  //left: 200px;
+  
   right: 5px;
   border: none;
   background: transparent;

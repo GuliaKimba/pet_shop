@@ -5,13 +5,9 @@ import stl from './cartOrderStyles.module.scss'
 export function CartOrder() {
   const { productsInCart } = useSelector((state) => state.cart)
   const arr = productsInCart.filter((item) => item.checkbox === true)
-  // let { price } = productsInCart
-  // if (productsInCart.discount > 0) {
-  //  price = productsInCart.price - (productsInCart.price * productsInCart.discount) / 100
-  // }
-  console.log({ arr })
+
   const myArr = arr.reduce(
-    (sum, item) => sum + (item.price - (item.price * item.discount) / 100) * item.count,
+    (sum, item) => sum + Math.round(item.price - (item.price * item.discount) / 100) * item.count,
     0,
   )
   const myCount = arr.reduce((sum, item) => sum + item.count, 0)

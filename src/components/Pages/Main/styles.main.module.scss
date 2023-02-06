@@ -1,6 +1,6 @@
 .main {
   padding: 10px;
-	flex-grow: 1;
+  flex-grow: 1;
 }
 .container {
   max-width: 1300px;
@@ -8,6 +8,8 @@
   display: flex;
   flex-direction: column;
 }
-.list__item{
-
+.list__item {
+}
+.loading {
+  flex: 1 1 auto;
 }

@@ -72,7 +72,5 @@ class ApiAuth {
   }
 }
 
-export const registrationRequest = new ApiAuth(BASE_URL_AUTH)
 export const authorizationRequest = new ApiAuth(BASE_URL_AUTH)
 export const userRequest = new ApiAuth(BASE_URL_USER)
-export const apiToken = new ApiAuth('https://api.react-learning.ru/v2/sm8/users/me')

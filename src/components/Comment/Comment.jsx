@@ -4,12 +4,10 @@ import cn from 'classnames'
 import stl from './commentStyles.module.scss'
 
 import { apiAllProducts } from '../Api/apiProduct'
-import { CommentDetail } from './CommentDetail'
-import { AddComment } from './AddComment'
+import { CommentDetail } from './CommentDetail/CommentDetail'
+import { AddComment } from './AddComment/AddComment'
 
 export function Comment({ ...item }) {
-  console.log({ item })
-  console.log(item?._id)
   const getReviews = () => apiAllProducts.getAllReview(item._id)
   const navigate = useNavigate()
 
@@ -28,12 +26,11 @@ export function Comment({ ...item }) {
   if (!product) return <div>Это ошибка </div>
   if (isError) return <div>{error.message}</div>
   if (product.err) return navigate('*')
-  console.log({ product })
 
   return (
     <div className={cn(stl.container)}>
-      <div className={cn(stl.title)}>Отзывы покупателей:</div>
       <AddComment {...item} />
+      <div className={cn(stl.title)}>Отзывы покупателей:</div>
       {item?.reviews.length >= 1 ? (
         <div className={cn(stl.reviews)}>
           {product?.map((el) => (

@@ -7,11 +7,9 @@ import './index.css'
 import App from './App'
 import { Main } from './components/Pages/Main/Main'
 import { Auth } from './components/Pages/Auth/Auth'
-import { SignUp } from './components/Pages/Auth/SignUp'
-import { Test } from './components/Pages/Test'
+import { SignUp } from './components/Pages/Auth/SignUp/SignUp'
 import { PrivateRoute } from './PrivateRoute/index'
-import { SingInForm } from './components/Form/FormSingIn'
-import { SignIn } from './components/Pages/Auth/SignIn'
+import { SignIn } from './components/Pages/Auth/SignIn/SignIn'
 import { Profile } from './components/Pages/UserPage/Profile'
 import { NotFound } from './components/Pages/NotFound/NotFound'
 import { FilterContextProvider } from './components/FilterContext/FilterContextProvider'
@@ -79,19 +77,6 @@ const router = createBrowserRouter([
     element: <SignIn />,
   },
 
-  {
-    path: 'singintest/',
-    element: <SingInForm />,
-  },
-
-  {
-    path: 'product/:name',
-    element: <ProductPage />,
-  },
-  {
-    path: 'test/',
-    element: <Test />,
-  },
   {
     path: '404',
     element: <NotFound />,

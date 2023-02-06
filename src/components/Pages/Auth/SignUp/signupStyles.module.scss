@@ -1,43 +1,38 @@
-.new__product {
-  flex-grow: 1;
-
-}
 .container {
-  max-width: 1300px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
   padding-top: 30px;
-	padding: 50px 0;
-}
-.formik {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .form {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding-top: 50px;
+  p {
+    margin: 0;
+  }
+  //align-items: center;
 }
-.field {
+.input__singup {
   border: none;
   outline: none;
   border: 2px solid #ffa426;
   border-radius: 5px;
   min-height: 20px;
-  min-width: 300px;
   padding: 5px;
   &:focus {
     box-shadow: 1px 1px 10px 1px #ffa426;
   }
 }
-
-.error {
-  color: red;
-  font-size: 13px;
+.input__cnt {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
-.formik__btn{
+
+.sing__btn {
   background-color: #ffa426;
   border: 0;
   padding: 15px;
@@ -49,10 +44,14 @@
     cursor: pointer;
   }
 }
-
 .noactive {
   background-color: #b1a9ac;
   &:hover {
     cursor: auto;
   }
+}
+.navigate {
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
 }

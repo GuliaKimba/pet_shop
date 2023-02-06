@@ -1,5 +1,5 @@
-.container{
-	padding-top: 30px;
+.container {
+  padding-top: 30px;
 }
 .form {
   display: flex;
@@ -12,30 +12,6 @@
     margin: 0;
   }
   //align-items: center;
-}
-.input__singup {
-  border: none;
-  outline: none;
-  border: 2px solid #ffa426;
-  border-radius: 5px;
-  min-height: 20px;
-  padding: 5px;
-  &:focus {
-    box-shadow: 1px 1px 10px 1px #ffa426;
-  }
-}
-.input__cnt {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-}
-.input__text {
-}
-.input__email {
-}
-.input__password {
 }
 
 .input__singin {
@@ -67,4 +43,9 @@
   &:hover {
     cursor: auto;
   }
+}
+.navigate{
+	font-size: 14px;
+	cursor: pointer;
+	text-decoration: underline;
 }
