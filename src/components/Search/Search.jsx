@@ -16,12 +16,14 @@ export function Search() {
   const { setSearch } = useFilterContextMethod()
 
   useEffect(() => {
-    setSearchParams({ query: input })
+    if (!input) setSearchParams(undefined)
+    else {
+      setSearchParams({ query: input })
+    }
   }, [input])
 
   useEffect(() => {
     setSearch(debounceValue)
-    // debounceValue('')
   }, [debounceValue])
 
   return (

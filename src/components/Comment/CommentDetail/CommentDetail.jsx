@@ -1,11 +1,38 @@
+import { useDispatch } from 'react-redux'
+import { useMutation } from '@tanstack/react-query'
 import cn from 'classnames'
 import stl from './сommentDetailStyles.module.scss'
 import trash from './trash.png'
-import edit from './edit.png'
+
+import { deleteRev } from '../../../redux/reviewsSlice/revSlice'
 
 export function CommentDetail({ ...el }) {
+  console.log({ el })
+  const idProd = el.product
+  const idRev = el._id
   const userId = JSON.parse(localStorage.getItem('userId'))
 
+  async function deleteReview() {
+    const JWT = JSON.parse(localStorage.getItem('token'))
+    const res = await fetch(`https://api.react-learning.ru/products/review/${idProd}/${idRev}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: `Bearer ${JWT}`,
+      },
+    })
+    return res.json()
+  }
+
+  const dispatch = useDispatch()
+
+  const { mutateAsync } = useMutation({
+    mutationFn: deleteReview,
+  })
+  const handlerSubmit = async (e) => {
+    e.preventDefault()
+    await mutateAsync(idRev)
+    dispatch(deleteRev())
+  }
   const myId = el.author._id
 
   const { rating } = el
@@ -42,23 +69,12 @@ export function CommentDetail({ ...el }) {
         <div>
           {userId === myId ? (
             <button
+              onClick={handlerSubmit}
               className={cn(stl.comment__btn)}
               type='button'>
               <img
                 src={trash}
                 alt='Удалить'
-              />
-            </button>
-          ) : null}
-        </div>
-        <div>
-          {userId === myId ? (
-            <button
-              className={cn(stl.comment__btn)}
-              type='button'>
-              <img
-                src={edit}
-                alt='Редактировать'
               />
             </button>
           ) : null}

@@ -11,8 +11,12 @@
   }
 }
 .profile__img {
+	display: flex;
+	flex-direction: column;
   img {
     width: 300px;
+		border-radius: 20%;
+
   }
 }
 .profile__info {

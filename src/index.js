@@ -19,6 +19,10 @@ import { ProductPage } from './components/Pages/ProductPage/ProductPage'
 import { Favorite } from './components/Pages/Favorite/Favorite'
 
 import { NewProductForm } from './components/Pages/NewProductForm/NewProductForm'
+import { CommentTest } from './components/Comment/CommentTest/CommentTest'
+import { EditProductForm } from './components/EditProductForm/EditProductForm'
+import { EditNameForm } from './components/EditNameForm/EditNameForm'
+import { EditAvatarForm } from './components/EditAvatarForm/EditAvatarForm'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,6 +50,14 @@ const router = createBrowserRouter([
         element: <Profile />,
       },
       {
+        path: 'profile/edit',
+        element: <EditNameForm />,
+      },
+      {
+        path: 'profile/edit-avatar',
+        element: <EditAvatarForm />,
+      },
+      {
         path: 'favorite/',
         element: <Favorite />,
       },
@@ -56,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: 'product/:_id',
         element: <ProductPage />,
+      },
+      {
+        path: 'product/:_id/edit',
+        element: <EditProductForm />,
       },
       {
         path: 'add-product',
@@ -84,6 +100,10 @@ const router = createBrowserRouter([
   {
     path: '*',
     element: <Navigate to='404' />,
+  },
+  {
+    path: '/reviews',
+    element: <CommentTest />,
   },
 ])
 

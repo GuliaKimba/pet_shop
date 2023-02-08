@@ -70,6 +70,34 @@ class ApiAuth {
 
     return res.json()
   }
+
+  async editName(values) {
+    const JWT = JSON.parse(localStorage.getItem('token'))
+    const groupId = JSON.parse(localStorage.getItem('groupId'))
+    const res = await fetch(`${this.url}${groupId}/users/me`, {
+      method: 'PATCH',
+      headers: {
+        'Content-type': 'application/json',
+        authorization: `Bearer ${JWT}`,
+      },
+      body: JSON.stringify(values),
+    })
+    return res.json()
+  }
+
+  async editAvatar(values) {
+    const JWT = JSON.parse(localStorage.getItem('token'))
+    const groupId = JSON.parse(localStorage.getItem('groupId'))
+    const res = await fetch(`${this.url}${groupId}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        'Content-type': 'application/json',
+        authorization: `Bearer ${JWT}`,
+      },
+      body: JSON.stringify(values),
+    })
+    return res.json()
+  }
 }
 
 export const authorizationRequest = new ApiAuth(BASE_URL_AUTH)

@@ -1,38 +1,75 @@
-import { useMutation } from '@tanstack/react-query'
-import cn from 'classnames'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import { useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
-import { apiAllProducts } from '../../Api/apiProduct'
-import stl from './newProductFormStyles.module.scss'
+import cn from 'classnames'
+import stl from './editProductFormStyles.module.scss'
+import { apiAllProducts } from '../Api/apiProduct'
 
-const addNewProductFetch = (values) => apiAllProducts.addNewProduct(values)
-export function NewProductForm() {
+export function EditProductForm() {
   const navigate = useNavigate()
+  const params = useParams()
+  const productId = params._id
+  console.log({ productId })
+
+  async function editProduct(values) {
+    const JWT = JSON.parse(localStorage.getItem('token'))
+    const res = await fetch(`https://api.react-learning.ru/products/${productId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-type': 'application/json',
+        authorization: `Bearer ${JWT}`,
+      },
+      body: JSON.stringify(values),
+    })
+    return res.json()
+  }
   const { mutateAsync } = useMutation({
-    mutationFn: addNewProductFetch,
-    onSuccess: () => {
-      navigate('/')
-    },
+    mutationFn: editProduct,
   })
 
+  const getProductByID = () => apiAllProducts.getCurrentProductById(productId)
+
+  const {
+    data: item,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ['currentProduct'],
+    queryFn: () => getProductByID(productId),
+  })
+  if (isLoading) return <div>Загрузка</div>
+
+  if (!item) return <div>Это ошибка </div>
+  if (isError) return <div>{error.message}</div>
+  if (item.err) return navigate('*')
+
   const handlerSubmit = async (values) => {
+    console.log({ values })
     await mutateAsync(values)
+    navigate(`/product/${productId}`)
   }
+
+  const handlerCancel = () => {
+    navigate(`/product/${productId}`)
+  }
+
   return (
     <div className={cn(stl.new__product)}>
       <div className={cn(stl.container)}>
         <div className={cn(stl.formik)}>
+          <h2>Редактировать</h2>
           <Formik
             initialValues={{
-              name: '',
-              price: '',
-              wight: '',
-              discount: '',
-              stock: '',
-              pictures: '',
-              description: '',
-              available: true,
+              name: item.name,
+              price: item.price,
+              wight: item.wight,
+              discount: item.discount,
+              stock: item.stock,
+              pictures: item.pictures,
+              description: item.description,
+              available: item.available,
             }}
             validationSchema={Yup.object({
               name: Yup.string()
@@ -151,7 +188,13 @@ export function NewProductForm() {
               <button
                 className={cn(stl.formik__btn)}
                 type='submit'>
-                Создать
+                Сохранить
+              </button>
+              <button
+                onClick={handlerCancel}
+                className={cn(stl.formik__btn)}
+                type='button'>
+                Отмена
               </button>
             </Form>
           </Formik>

@@ -1,39 +1,33 @@
-import { useQuery } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import cn from 'classnames'
 import stl from './commentStyles.module.scss'
-
-import { apiAllProducts } from '../Api/apiProduct'
 import { CommentDetail } from './CommentDetail/CommentDetail'
 import { AddComment } from './AddComment/AddComment'
+import { fetchRev } from '../../redux/reviewsSlice/revSlice'
 
 export function Comment({ ...item }) {
-  const getReviews = () => apiAllProducts.getAllReview(item._id)
-  const navigate = useNavigate()
+  const arr = useSelector((state) => state.test.rev)
+  const dispatch = useDispatch()
+  const productId = item._id
+  console.log({ productId })
 
-  const {
-    data: product,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ['currentReviews'],
-    queryFn: () => getReviews(item._id),
-  })
-
-  if (isLoading) return <div>Загрузка</div>
-
-  if (!product) return <div>Это ошибка </div>
-  if (isError) return <div>{error.message}</div>
-  if (product.err) return navigate('*')
+  const prodRev = arr.filter((el) => el.product === productId)
+  const prodRevSort = prodRev.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+  console.log({ prodRev })
+  useEffect(() => {
+    dispatch(fetchRev())
+  }, [dispatch])
+  console.log({ arr })
 
   return (
     <div className={cn(stl.container)}>
       <AddComment {...item} />
+
       <div className={cn(stl.title)}>Отзывы покупателей:</div>
       {item?.reviews.length >= 1 ? (
         <div className={cn(stl.reviews)}>
-          {product?.map((el) => (
+          {prodRevSort?.map((el) => (
             <CommentDetail
               key={el.created_at}
               {...el}

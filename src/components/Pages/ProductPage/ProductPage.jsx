@@ -9,6 +9,8 @@ import { AddFavorite, NoFavorite } from '../../Buttons/Buttons'
 import { addProductToCart } from '../../../redux/slices/cartSlice'
 import { Comment } from '../../Comment/Comment'
 import { fetchLikes } from '../../../redux/likesSlice/likesSlice'
+import edit from './edit.png'
+import trash from './trash.png'
 
 export function ProductPage() {
   const [userLike, setUserLike] = useState(false)
@@ -75,6 +77,10 @@ export function ProductPage() {
     await mutateAsync(productId)
   }
 
+  const clickToEditForm = () => {
+    navigate(`/product/${id}/edit`)
+  }
+
   return (
     <div className={cn(stl.product_page)}>
       <div className={cn(stl.container)}>
@@ -130,10 +136,22 @@ export function ProductPage() {
                   в корзину
                 </button>
                 <button
+                  onClick={clickToEditForm}
+                  className={cn(stl.item__products_btn_edit)}
+                  type='button'>
+                  <img
+                    src={edit}
+                    alt='Редактировать'
+                  />
+                </button>
+                <button
                   onClick={handlerSubmit}
                   className={cn(stl.item__products_btn_delete)}
                   type='button'>
-                  удалить
+                  <img
+                    src={trash}
+                    alt='Удалить'
+                  />
                 </button>
               </div>
             ) : (
@@ -151,6 +169,7 @@ export function ProductPage() {
         <div className={cn(stl.comment)}>
           <Comment {...item} />
         </div>
+        {/* <CommentTest /> */}
       </div>
     </div>
   )

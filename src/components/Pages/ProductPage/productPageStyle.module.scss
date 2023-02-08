@@ -49,9 +49,9 @@
 .current__price_line_through {
   text-decoration: line-through;
 }
-.product__btn{
-	display: flex;
-	gap: 15px;
+.product__btn {
+  display: flex;
+  gap: 15px;
 }
 .item__products_btn {
   background-color: #ffa426;
@@ -65,7 +65,7 @@
   }
 }
 .item__products_btn_delete {
-	background-color: #fa6a8c;
+  background-color: #E80F0F;
   border: none;
   color: aliceblue;
   border-radius: 5px;
@@ -73,5 +73,23 @@
   font-weight: 600;
   &:hover {
     cursor: pointer;
+  }
+  img {
+		width: 18px;
+  }
+}
+
+.item__products_btn_edit{
+background-color: #10C44C;
+  border: none;
+  color: aliceblue;
+  border-radius: 5px;
+  padding: 8px;
+  font-weight: 600;
+  &:hover {
+    cursor: pointer;
+  }
+  img {
+		width: 18px;
   }
 }

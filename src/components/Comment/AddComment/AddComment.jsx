@@ -1,14 +1,16 @@
 import { useMutation } from '@tanstack/react-query'
+import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import cn from 'classnames'
 import stl from './addCommentStyles.module.scss'
+import { addRev } from '../../../redux/reviewsSlice/revSlice'
 
 export function AddComment() {
   const params = useParams()
   const idProd = params._id
-
+  const dispatch = useDispatch()
   async function addNewReview(values) {
     const JWT = JSON.parse(localStorage.getItem('token'))
     const res = await fetch(`https://api.react-learning.ru/products/review/${idProd}`, {
@@ -24,14 +26,15 @@ export function AddComment() {
 
   const { mutateAsync } = useMutation({
     mutationFn: addNewReview,
-    onSuccess: () => {
-      console.log('OK')
-    },
   })
 
   const handlerSubmit = async (values) => {
+    console.log({ values })
     await mutateAsync(values)
+
+    dispatch(addRev())
   }
+
   return (
     <div className={cn(stl.formik)}>
       <Formik
@@ -75,7 +78,11 @@ export function AddComment() {
               <option value='5'>5</option>
             </Field>
           </div>
-          <button className={cn(stl.add__comment_btn)} type='submit'>Отправить отзыв</button>
+          <button
+            className={cn(stl.add__comment_btn)}
+            type='submit'>
+            Отправить отзыв
+          </button>
         </Form>
       </Formik>
     </div>

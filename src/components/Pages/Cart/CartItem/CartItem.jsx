@@ -73,7 +73,7 @@ export function CartItem({ ...product }) {
             type='button'>
             -
           </button>
-          <div>{h.count}</div>
+          <div className={cn(stl.counter)}>{h.count}</div>
 
           <button
             onClick={addItemClick}

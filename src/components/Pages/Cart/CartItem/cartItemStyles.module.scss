@@ -4,8 +4,10 @@
 }
 
 .cart__item {
+	min-width: 700px;
   display: flex;
   align-items: center;
+	justify-content: space-between;
   gap: 20px;
   background-color: #fff;
   padding: 10px 20px;
@@ -25,7 +27,12 @@
   gap: 10px;
   align-items: center;
 }
-
+.counter {
+	display: flex;
+	min-width: 20px;
+	align-items: center;
+	justify-content: center;
+}
 .cart__btn {
   font-weight: 700;
   border: none;
@@ -34,10 +41,10 @@
 }
 
 .cart__btn_delete {
-	background-color:#F9829C;
-	color: #fff;
-	border: none;
-	border-radius: 5px;
-	padding: 5px 10px;
-	cursor: pointer;
+  background-color: #f9829c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
 }
