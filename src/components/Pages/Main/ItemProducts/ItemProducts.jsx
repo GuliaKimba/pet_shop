@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import cn from 'classnames'
 import stl from './styles.itemProduct.module.scss'
-import { addProductToCart } from '../../../../redux/slices/cartSlice'
+import {
+  addProductToCart,
+  deleteOneItem,
+  deleteProductFromCart,
+} from '../../../../redux/slices/cartSlice'
 import { AddFavorite, NoFavorite } from '../../../Buttons/Buttons'
 import { fetchLikes } from '../../../../redux/likesSlice/likesSlice'
 
@@ -11,6 +15,10 @@ export function ItemProducts({ ...item }) {
   const [userLike, setUserLike] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { productsInCart } = useSelector((state) => state.cart)
+  const h = productsInCart.find((el) => el._id === item._id)
+
+  const isCart = productsInCart.filter((el) => el._id === item._id)
 
   const productRating = item.reviews.reduce((sum, obj) => obj.rating + sum, 0)
 
@@ -101,33 +109,48 @@ export function ItemProducts({ ...item }) {
       setUserLike(true)
     }
   }
+  const handleClick1 = () => {
+    if (window.confirm('Вы действительно хотите удалить продукт из корзины?')) {
+      dispatch(deleteProductFromCart(item))
+    }
+  }
+  const addItemClick = (e) => {
+    e.stopPropagation()
+    dispatch(addProductToCart(item))
+  }
+
+  const deleteItemClick = (e) => {
+    e.stopPropagation()
+    dispatch(deleteOneItem(h._id))
+  }
 
   return (
     <div className={cn(stl.item__cnt)}>
-      {item.discount > 0 ? (
-        <button
-          className={cn(stl.tags__btn, stl.tags__sale_btn)}
-          aria-label='Значки акции'
-          type='submit'>
-          {`- ${item.discount} %`}
-        </button>
-      ) : null}
-      <div
-        className={cn(stl.cnt__img)}
-        onClick={changeProduct}>
-        <img
-          className={cn(stl.imgg)}
-          src={item.pictures}
-          alt='Фото продукта'
-        />
-      </div>
+      <div>
+        {item.discount > 0 ? (
+          <button
+            className={cn(stl.tags__btn, stl.tags__sale_btn)}
+            aria-label='Значки акции'
+            type='submit'>
+            {`- ${item.discount} %`}
+          </button>
+        ) : null}
+        <div
+          className={cn(stl.cnt__img)}
+          onClick={changeProduct}>
+          <img
+            className={cn(stl.imgg)}
+            src={item.pictures}
+            alt='Фото продукта'
+          />
+        </div>
 
-      <div
-        onClick={clickToFavorite}
-        className={cn(stl.like__cnt)}>
-        {userLike ? <AddFavorite {...item} /> : <NoFavorite {...item} />}
+        <div
+          onClick={clickToFavorite}
+          className={cn(stl.like__cnt)}>
+          {userLike ? <AddFavorite {...item} /> : <NoFavorite {...item} />}
+        </div>
       </div>
-
       <div className={cn(stl.itemWr)}>
         {item.discount > 0 ? (
           <div className={cn(stl.current__price_line_through)}>
@@ -153,12 +176,32 @@ export function ItemProducts({ ...item }) {
           {rating > 0 ? rating : 0}
           {userRating}
         </div>
-        <button
-          onClick={handleClick}
-          className={cn(stl.item__products_btn)}
-          type='button'>
-          в корзину
-        </button>
+        {isCart.length > 0 ? (
+          <div className={cn(stl.cart__count)}>
+            <button
+              onClick={h.count <= 1 ? handleClick1 : deleteItemClick}
+              className={cn(stl.cart__btn)}
+              type='button'>
+              -
+            </button>
+            <div className={cn(stl.counter)}>{h.count}</div>
+
+            <button
+              onClick={addItemClick}
+              disabled={productsInCart.count >= item.stock}
+              className={cn(stl.cart__btn)}
+              type='button'>
+              +
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={handleClick}
+            className={cn(stl.item__products_btn)}
+            type='button'>
+            в корзину
+          </button>
+        )}
       </div>
     </div>
   )

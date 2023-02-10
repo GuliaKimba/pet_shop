@@ -23,7 +23,7 @@ const likesSlice = createSlice({
       state.usersLike = action.payload
     },
     addLike: (state, action) => {
-      const findProduct = state.usersLike.find((item) => item._id === action.payload._id)
+      const findProduct = state.usersLike.find((item) => item._id === action.payload)
       if (findProduct) {
         findProduct.count += 1
       } else {
@@ -34,7 +34,7 @@ const likesSlice = createSlice({
       }
     },
     deleteLike: (state, action) => {
-      state.usersLike = state.usersLike.filter((product) => product._id !== action.payload._id)
+      state.usersLike = state.usersLike.filter((product) => product._id !== action.payload)
     },
   },
 

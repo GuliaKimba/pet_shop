@@ -4,10 +4,10 @@
 }
 
 .cart__item {
-	min-width: 700px;
+  min-width: 700px;
   display: flex;
   align-items: center;
-	justify-content: space-between;
+  justify-content: space-between;
   gap: 20px;
   background-color: #fff;
   padding: 10px 20px;
@@ -28,23 +28,37 @@
   align-items: center;
 }
 .counter {
-	display: flex;
-	min-width: 20px;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  min-width: 20px;
+  align-items: center;
+  justify-content: center;
 }
 .cart__btn {
-  font-weight: 700;
-  border: none;
-  border-radius: 3px;
+	padding: 8px 12px;
+	border: 0;
+	border-radius: 10px;
+	background-color: #F2F5F9;
+	font-weight: 700;
   cursor: pointer;
 }
 
 .cart__btn_delete {
+  font-family: 'GTEestiProText';
   background-color: #f9829c;
   color: #fff;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
+}
+.cart__price {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cart__price_black {
+  text-decoration: line-through;
+}
+.cart__price_red {
+  color: red;
 }

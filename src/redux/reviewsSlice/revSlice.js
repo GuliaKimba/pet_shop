@@ -13,7 +13,7 @@ export const fetchRev = createAsyncThunk('rev/fetchrev', async function () {
 })
 
 const revSlice = createSlice({
-  name: 'test',
+  name: 'reviews',
   initialState: {
     rev: [],
   },

@@ -12,7 +12,7 @@ export function Favorite() {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchLikes())
-  }, [dispatch])
+  }, [arr])
 
   const navigate = useNavigate()
   const navigateToMainPage = () => {

@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
-
 import cn from 'classnames'
-
 import stl from './search.module.scss'
 import { useFilterContextMethod } from '../FilterContext/FilterContextProvider'
 import { useDebounce } from './useDebounce'

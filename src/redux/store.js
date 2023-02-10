@@ -9,6 +9,6 @@ export const store = configureStore({
     cart: cartReducer,
     token: tokenReducer,
     likes: likesSlice,
-    test: revSlice,
+    reviews: revSlice,
   },
 })

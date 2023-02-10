@@ -18,7 +18,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 10px;
 }
 .field {
   border: none;
@@ -48,6 +48,9 @@
   &:hover {
     cursor: pointer;
   }
+}
+.formik__btn_cancel{
+	background-color: #b1a9ac;
 }
 
 .noactive {

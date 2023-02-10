@@ -6,19 +6,22 @@ const FilterContextMethod = createContext()
 
 export function FilterContextProvider({ children }) {
   const { search, setSearch } = useFilter()
+  const { sort, setSort } = useFilter()
 
   const filterContextData = useMemo(
     () => ({
       search,
+      sort,
     }),
-    [search],
+    [search, sort],
   )
 
   const filterContextMethod = useMemo(
     () => ({
       setSearch,
+      setSort,
     }),
-    [setSearch],
+    [setSearch, setSort],
   )
 
   return (

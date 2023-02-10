@@ -1,6 +1,5 @@
 import cn from 'classnames'
-
-import { AddProductBtn, CartBtn, FavoritesBtn, LogOut, ProfileBtn } from '../Buttons/Buttons'
+import { AddProductBtn, CartBtn, FavoritesBtn, ProfileBtn } from '../Buttons/Buttons'
 import { Logo } from '../Logo/Logo'
 import { Search } from '../Search/Search'
 import stl from './styles.header.module.scss'
@@ -16,7 +15,6 @@ export function Header() {
           <FavoritesBtn />
           <CartBtn />
           <AddProductBtn />
-          <LogOut />
         </div>
       </div>
     </header>

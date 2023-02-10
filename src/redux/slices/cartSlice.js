@@ -66,7 +66,7 @@ const cartSlice = createSlice({
     },
 
     toggleAllCheckbox(state) {
-      state.checkAll = !state.checkAll
+      state.checkAll = false
       state.productsInCart = state.productsInCart.map((product) => ({
         ...product,
         checkbox: false,

@@ -1,3 +1,14 @@
+.cnt{
+	display: flex;
+	gap: 4px;
+	flex-direction: column;
+	align-items: center;
+	font-size: 14px;
+	cursor: pointer;
+	img{
+		width: 25px;
+	}
+}
 .search__btn {
   border: none;
   background-color: #ffa426;
@@ -15,8 +26,8 @@
   &:hover {
     cursor: pointer;
   }
-  img {
-    width: 35px;
+   img {
+    width: 29px;
   }
 }
 
@@ -25,18 +36,20 @@
 }
 
 .cart__btn {
+
   background-color: transparent;
   border: 0;
   &:hover {
     cursor: pointer;
   }
-  img {
-    width: 35px;
-  }
+  //img {
+  //  width: 25px;
+  //}
 }
 .btn__counter {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 12px;
+	line-height: 1.4;
 }
 .profile__btn {
   background-color: transparent;
@@ -44,9 +57,9 @@
   &:hover {
     cursor: pointer;
   }
-  img {
-    width: 35px;
-  }
+  //img {
+  //  width: 25px;
+  //}
 }
 
 .singup__btn {
@@ -54,9 +67,12 @@
   border: 0;
   padding: 15px;
   border-radius: 8px;
-  color: aliceblue;
-  font-weight: 700;
-
+  color: #fff;
+  font-family: 'GTEestiProText';
+	line-height: 18px;
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: 0.2px;
   &:hover {
     cursor: pointer;
   }
@@ -66,8 +82,12 @@
   border: 0;
   padding: 15px;
   border-radius: 8px;
-  color: aliceblue;
-  font-weight: 700;
+  color: #fff;
+  font-family: 'GTEestiProText';
+	line-height: 18px;
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: 0.2px;
   &:hover {
     cursor: pointer;
   }
@@ -80,4 +100,10 @@
   img {
     width: 30px;
   }
+}
+
+
+.btn__text{
+	display: flex;
+	align-items: flex-end;
 }

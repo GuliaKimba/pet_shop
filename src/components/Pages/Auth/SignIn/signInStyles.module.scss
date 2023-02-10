@@ -31,8 +31,12 @@
   border: 0;
   padding: 15px;
   border-radius: 8px;
-  color: aliceblue;
-  font-weight: 700;
+	font-family: 'GTEestiProText';
+	color: #fff;
+	font-size: 16px;
+	line-height: 20px;
+	letter-spacing: 0.2px;
+
 
   &:hover {
     cursor: pointer;

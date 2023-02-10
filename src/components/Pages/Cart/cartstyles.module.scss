@@ -14,7 +14,15 @@
   display: flex;
   flex-direction: column;
 }
-
+.cart__btn{
+	font-family: 'GTEestiProText';
+	background-color: #f9829c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
 .cart__product_header {
   display: flex;
   align-items: center;

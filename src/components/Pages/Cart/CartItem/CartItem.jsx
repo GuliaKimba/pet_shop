@@ -12,11 +12,10 @@ import {
 export function CartItem({ ...product }) {
   const dispatch = useDispatch()
   const { productsInCart } = useSelector((state) => state.cart)
-  const priceWithDiscount = Math.round(product.price - (product.price * product.discount) / 100)
+  const { stock, price, discount } = product
+  const priceWithDiscount = Math.round(price - (price * discount) / 100)
 
   const h = productsInCart.find((el) => el._id === product._id)
-
-  const { stock } = product
 
   const handleClick = () => {
     if (window.confirm('Вы действительно хотите удалить продукт из корзины?')) {
@@ -61,10 +60,24 @@ export function CartItem({ ...product }) {
         </div>
 
         <div className={cn(stl.cart__product_name)}>{product.name}</div>
-        <div>
-          {priceWithDiscount * h.count}
-          {' руб.'}
-        </div>
+        {discount > 0 ? (
+          <div className={cn(stl.cart__price)}>
+
+            <div className={cn(stl.cart__price_black)}>
+              {price * h.count}
+              {' руб.'}
+            </div>
+            <div className={cn(stl.cart__price_red)}>
+              {priceWithDiscount * h.count}
+              {' руб.'}
+            </div>
+          </div>
+        ) : (
+          <div>
+            {price * h.count}
+            {' руб.'}
+          </div>
+        )}
 
         <div className={cn(stl.cart__count)}>
           <button

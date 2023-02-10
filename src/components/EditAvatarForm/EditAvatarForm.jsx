@@ -15,7 +15,6 @@ export function EditAvatarForm() {
     mutationFn: editAvatar,
   })
   const handlerSubmit = async (values) => {
-    console.log({ values })
     await mutateAsync(values)
     navigate('/profile')
   }
@@ -26,24 +25,28 @@ export function EditAvatarForm() {
     <div className={cn(stl.new__product)}>
       <div className={cn(stl.container)}>
         <div className={cn(stl.formik)}>
-          <h2>Редактировать</h2>
+          <h2>Редактировать аватар</h2>
           <Formik
             initialValues={{
               avatar: '',
             }}
             validationSchema={Yup.object({
-              avatar: Yup.string().required('Обязательно для заполнения'),
+              avatar: Yup.string()
+                .matches(
+                  /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+                  'Введите корректный URL адрес!',
+                )
+                .required('Обязательно для заполнения'),
             })}
             onSubmit={(values) => {
-              console.log({ values })
               handlerSubmit(values)
             }}>
             <Form className={cn(stl.form)}>
-              <label htmlFor='avatar'>Изображение</label>
               <Field
                 className={cn(stl.field)}
                 name='avatar'
                 type='text'
+                placeholder='Введите URL адрес'
               />
               <ErrorMessage
                 component='span'
@@ -57,7 +60,7 @@ export function EditAvatarForm() {
               </button>
               <button
                 onClick={handlerCancel}
-                className={cn(stl.formik__btn)}
+                className={cn(stl.formik__btn, stl.formik__btn_cancel)}
                 type='button'>
                 Отмена
               </button>

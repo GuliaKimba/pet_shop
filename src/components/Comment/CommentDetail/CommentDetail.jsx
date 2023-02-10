@@ -7,7 +7,6 @@ import trash from './trash.png'
 import { deleteRev } from '../../../redux/reviewsSlice/revSlice'
 
 export function CommentDetail({ ...el }) {
-  console.log({ el })
   const idProd = el.product
   const idRev = el._id
   const userId = JSON.parse(localStorage.getItem('userId'))

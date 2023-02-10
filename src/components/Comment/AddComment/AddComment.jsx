@@ -29,7 +29,6 @@ export function AddComment() {
   })
 
   const handlerSubmit = async (values) => {
-    console.log({ values })
     await mutateAsync(values)
 
     dispatch(addRev())
@@ -47,8 +46,9 @@ export function AddComment() {
             .max(200, 'Максимум 30 символов')
             .required('Обязательно для заполнения'),
         })}
-        onSubmit={(values) => {
+        onSubmit={(values, { resetForm }) => {
           handlerSubmit(values)
+          resetForm()
         }}>
         <Form className={cn(stl.form)}>
           {/* <label htmlFor='text'>Комментарий</label> */}

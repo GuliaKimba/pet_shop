@@ -35,18 +35,19 @@ export function FavoritesBtn() {
     navigate('/favorite')
   }
   return (
-    <button
-      onClick={navigateToPageFavorite}
-      type='button'
-      className={cn(stl.favorites__btn)}>
-      <img
-        src={userLikes.length > 0 ? favoritesBtn : unFavorites}
-        alt='Избранное'
-      />
-      <div className={cn(stl.favoritesBtnCount)}>
-        {userLikes.length > 0 ? userLikes.length : null}
-      </div>
-    </button>
+    <div className={cn(stl.cnt)}>
+      <button
+        onClick={navigateToPageFavorite}
+        type='button'
+        className={cn(stl.favorites__btn)}>
+        <img
+          src={userLikes.length > 0 ? favoritesBtn : unFavorites}
+          alt='Избранное'
+        />
+        <div className={cn(stl.btn__counter)}>{userLikes.length > 0 ? userLikes.length : null}</div>
+      </button>
+      <div>Избранное</div>
+    </div>
   )
 }
 
@@ -73,25 +74,28 @@ export function CartBtn() {
   }
 
   return (
-    <div className={cn(stl.btn_container)}>
-      <button
-        onClick={navigateToPageCart}
-        type='button'
-        className={cn(stl.cart__btn)}>
-        <img
-          src={cart}
-          alt='Корзина'
-        />
-      </button>
-      <div className={cn(stl.btn__counter)}>
-        {productsInCart.length ? <div>{totalCount}</div> : null}
-        {allPrice > 0 ? (
-          <div>
-            {allPrice}
-            {' руб. '}
-          </div>
-        ) : null}
+    <div className={cn(stl.cnt)}>
+      <div className={cn(stl.btn_container)}>
+        <button
+          onClick={navigateToPageCart}
+          type='button'
+          className={cn(stl.cart__btn)}>
+          <img
+            src={cart}
+            alt='Корзина'
+          />
+        </button>
+        <div className={cn(stl.btn__counter)}>
+          {productsInCart.length ? <div>{totalCount}</div> : null}
+          {allPrice > 0 ? (
+            <div>
+              {allPrice}
+              {' руб. '}
+            </div>
+          ) : null}
+        </div>
       </div>
+      <div className={cn(stl.btn__text)}>Корзина</div>
     </div>
   )
 }
@@ -102,7 +106,7 @@ export function AddProductBtn() {
     navigate('/add-product')
   }
   return (
-    <div>
+    <div className={cn(stl.cnt)}>
       <button
         onClick={clickHandler}
         className={cn(stl.cart__btn)}
@@ -112,6 +116,7 @@ export function AddProductBtn() {
           alt='Добавить товар'
         />
       </button>
+      <div>Добавить товар</div>
     </div>
   )
 }
@@ -143,15 +148,18 @@ export function ProfileBtn() {
     navigate('/profile')
   }
   return (
-    <button
-      onClick={navigateToSingUp}
-      type='button'
-      className={cn(stl.profile__btn)}>
-      <img
-        src={profile}
-        alt='Личный кабинет'
-      />
-    </button>
+    <div className={cn(stl.cnt)}>
+      <button
+        onClick={navigateToSingUp}
+        type='button'
+        className={cn(stl.profile__btn)}>
+        <img
+          src={profile}
+          alt='Личный кабинет'
+        />
+      </button>
+      <div>Профиль</div>
+    </div>
   )
 }
 

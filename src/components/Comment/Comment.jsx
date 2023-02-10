@@ -7,18 +7,17 @@ import { AddComment } from './AddComment/AddComment'
 import { fetchRev } from '../../redux/reviewsSlice/revSlice'
 
 export function Comment({ ...item }) {
-  const arr = useSelector((state) => state.test.rev)
+  const arr = useSelector((state) => state.reviews.rev)
+
   const dispatch = useDispatch()
   const productId = item._id
-  console.log({ productId })
 
   const prodRev = arr.filter((el) => el.product === productId)
   const prodRevSort = prodRev.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-  console.log({ prodRev })
+
   useEffect(() => {
     dispatch(fetchRev())
-  }, [dispatch])
-  console.log({ arr })
+  }, [item])
 
   return (
     <div className={cn(stl.container)}>

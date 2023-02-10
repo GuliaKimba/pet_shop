@@ -16,7 +16,6 @@ export function EditNameForm() {
     mutationFn: editProfile,
   })
   const handlerSubmit = async (values) => {
-    console.log({ values })
     await mutateAsync(values)
     navigate('/profile')
   }
@@ -35,17 +34,16 @@ export function EditNameForm() {
             }}
             validationSchema={Yup.object({
               name: Yup.string()
-                .min(5, 'Минимум 5 символов')
+                .min(3, 'Минимум 3 символа')
                 .max(30, 'Максимум 30 символов')
                 .required('Обязательно для заполнения'),
 
               about: Yup.string()
                 .min(5, 'Минимум 5 символов')
-                .max(200, 'Максимум 200 символов')
+                .max(100, 'Максимум 100 символов')
                 .required('Обязательно для заполнения'),
             })}
             onSubmit={(values) => {
-              console.log({ values })
               handlerSubmit(values)
             }}>
             <Form className={cn(stl.form)}>
@@ -80,7 +78,7 @@ export function EditNameForm() {
               </button>
               <button
                 onClick={handlerCancel}
-                className={cn(stl.formik__btn)}
+                className={cn(stl.formik__btn, stl.formik__btn_cancel)}
                 type='button'>
                 Отмена
               </button>

@@ -14,12 +14,13 @@ import {
 } from '../../../redux/slices/cartSlice'
 
 export function Cart() {
-  const [isAllCheck, setIsAllCheck] = useState(true)
+  const { checkAll } = useSelector((state) => state.cart)
+
+  const [isAllCheck, setIsAllCheck] = useState(checkAll)
 
   const dispatch = useDispatch()
 
   const items = useSelector((state) => state.cart.productsInCart)
-  const { checkAll } = useSelector((state) => state.cart)
 
   const { data: products } = useQuery({
     queryKey: ['itemsCart'].concat(items.map((item) => item._id)),
@@ -53,6 +54,7 @@ export function Cart() {
               />
               <span>Выбрать все</span>
               <button
+                className={cn(stl.cart__btn)}
                 onClick={() => deleteSelCheck()}
                 type='button'>
                 Удалить выбранные

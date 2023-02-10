@@ -6,14 +6,13 @@ export function CommentTest({ ...item }) {
   const arr = useSelector((state) => state.test.rev)
   const dispatch = useDispatch()
   const productId = item._id
-  console.log({ productId })
 
   const prodRev = arr.filter((el) => el.product === productId)
-  console.log({ prodRev })
+
   useEffect(() => {
     dispatch(fetchRev())
   }, [dispatch])
-  console.log({ arr })
+
   return (
     <div>
       {prodRev.map((el) => (

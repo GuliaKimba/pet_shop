@@ -10,7 +10,6 @@ export function EditProductForm() {
   const navigate = useNavigate()
   const params = useParams()
   const productId = params._id
-  console.log({ productId })
 
   async function editProduct(values) {
     const JWT = JSON.parse(localStorage.getItem('token'))
@@ -46,7 +45,6 @@ export function EditProductForm() {
   if (item.err) return navigate('*')
 
   const handlerSubmit = async (values) => {
-    console.log({ values })
     await mutateAsync(values)
     navigate(`/product/${productId}`)
   }
@@ -99,7 +97,6 @@ export function EditProductForm() {
                 .required('Обязательно для заполнения'),
             })}
             onSubmit={(values) => {
-              console.log({ values })
               handlerSubmit(values)
             }}>
             <Form className={cn(stl.form)}>

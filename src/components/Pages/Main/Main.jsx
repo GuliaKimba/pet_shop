@@ -41,37 +41,14 @@ export const categorys = [
 ]
 
 export function Main() {
-  const [currentSort, setCurrentSort] = useState('')
   const [searchParams, setSearchParams] = useSearchParams()
+  const [currentSort, setCurrentSort] = useState(() => searchParams.get('sort') ?? '')
+
   const filters = useFilterContextData()
-
-  const {
-    data: response,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: getProductsQueryKey(filters),
-    queryFn: () =>
-      getAllProd({
-        query: filters.search,
-      }),
-  })
-  const navigate = useNavigate()
-  const n = response?.products
   const [items, setItems] = useState([])
-  useEffect(() => {
-    setItems(n)
-  }, [response])
-
-  if (isLoading) return <div className={cn(stl.loading)}>Загрузка</div>
-
-  if (!response) return <div>Это ошибка </div>
-  if (isError) return <div>{error.message}</div>
-  if (response.err) return navigate('*')
-
   const getSort = (current) => {
     setCurrentSort(current)
+
     if (current === 'default') {
       setItems(items.sort((a, b) => new Date(a.created_at) - new Date(b.created_at)))
     }
@@ -90,11 +67,45 @@ export function Main() {
     if (current === 'popular') {
       setItems(items.sort((a, b) => b.likes.length - a.likes.length))
     }
+
     setSearchParams({
       ...Object.fromEntries(searchParams.entries()),
       sort: current,
     })
   }
+
+  const {
+    data: response,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: getProductsQueryKey(filters),
+    queryFn: () =>
+      getAllProd({
+        query: filters.search,
+        sort: currentSort,
+      }),
+  })
+  const navigate = useNavigate()
+  const n = response?.products
+
+  useEffect(() => {
+    setItems(n)
+  }, [response])
+
+  useEffect(() => {
+    if (!currentSort) setSearchParams({ ...Object.fromEntries(searchParams.entries()) })
+    else {
+      setSearchParams({ ...Object.fromEntries(searchParams.entries()), sort: currentSort })
+    }
+  }, [searchParams])
+
+  if (isLoading) return <div className={cn(stl.loading)}>Загрузка</div>
+
+  if (!response) return <div>Это ошибка </div>
+  if (isError) return <div>{error.message}</div>
+  if (response.err) return navigate('*')
 
   return (
     <div className={cn(stl.main, stl.container)}>
@@ -104,7 +115,12 @@ export function Main() {
         getSort={getSort}
       />
 
-      <ListProducts items={items} />
+      <ListProducts
+        searchParams={searchParams}
+        currentSort={currentSort}
+        getSort={getSort}
+        items={items}
+      />
     </div>
   )
 }
