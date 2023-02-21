@@ -43,7 +43,6 @@ export const categorys = [
 export function Main() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [currentSort, setCurrentSort] = useState(() => searchParams.get('sort') ?? '')
-  console.log({ currentSort })
 
   const filters = useFilterContextData()
   const [items, setItems] = useState([])

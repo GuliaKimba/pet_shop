@@ -17,7 +17,7 @@ export function Comment({ ...item }) {
 
   useEffect(() => {
     dispatch(fetchRev())
-  }, [item])
+  }, [])
 
   return (
     <div className={cn(stl.container)}>

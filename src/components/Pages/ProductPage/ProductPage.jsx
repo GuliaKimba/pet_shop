@@ -8,10 +8,10 @@ import stl from './productPageStyle.module.scss'
 import { AddFavorite, NoFavorite } from '../../Buttons/Buttons'
 import { addProductToCart } from '../../../redux/slices/cartSlice'
 import { Comment } from '../../Comment/Comment'
-import { fetchLikes } from '../../../redux/likesSlice/likesSlice'
+// import { fetchLikes } from '../../../redux/likesSlice/likesSlice'
 import edit from './edit.png'
 import trash from './trash.png'
-import { fetchRev } from '../../../redux/reviewsSlice/revSlice'
+// import { fetchRev } from '../../../redux/reviewsSlice/revSlice'
 
 export function ProductPage() {
   const [userLike, setUserLike] = useState(false)
@@ -46,15 +46,15 @@ export function ProductPage() {
 
   const isLikeUser = item?.likes.includes(userId)
   const itemUserId = item?.author._id
-   useEffect(() => {
-    dispatch(fetchRev())
-   }, [dispatch])
+  // useEffect(() => {
+  //  dispatch(fetchRev())
+  // }, [dispatch])
   useEffect(() => {
     setUserLike(isLikeUser)
   }, [dispatch])
-  useEffect(() => {
-    dispatch(fetchLikes())
-  }, [dispatch])
+  // useEffect(() => {
+  //  dispatch(fetchLikes())
+  // }, [dispatch])
   if (isLoading) return <div>Загрузка</div>
 
   if (!item) return <div>Это ошибка </div>

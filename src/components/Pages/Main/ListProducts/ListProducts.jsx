@@ -7,7 +7,6 @@ export function ListProducts({ items }) {
   const [searchParams, setSearchParams] = useSearchParams()
   console.log({ setSearchParams })
   const abc = searchParams.get('sort') || ''
-  console.log({ abc })
 
   const getSort = () => {
     if (abc === 'default') {
@@ -41,7 +40,7 @@ export function ListProducts({ items }) {
 
     return items
   }
-  console.log({ items })
+
   return (
     <div className={cn(stl.list__products)}>
       {items

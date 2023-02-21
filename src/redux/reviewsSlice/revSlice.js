@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-const JWT = JSON.parse(localStorage.getItem('token'))
-
 export const fetchRev = createAsyncThunk('rev/fetchrev', async function () {
+  const JWT = JSON.parse(localStorage.getItem('token'))
   const resp = await fetch('https://api.react-learning.ru/products/review/', {
     headers: {
       authorization: `Bearer ${JWT}`,

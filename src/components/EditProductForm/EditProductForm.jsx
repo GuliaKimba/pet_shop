@@ -79,7 +79,7 @@ export function EditProductForm() {
                 .truncate()
                 .required('Обязательно для заполнения'),
               wight: Yup.string()
-                .min(5, 'Минимум 3 символов')
+                .min(3, 'Минимум 3 символов')
                 .max(10, 'Максимум 30 символов')
                 .required('Обязательно для заполнения'),
               discount: Yup.number()

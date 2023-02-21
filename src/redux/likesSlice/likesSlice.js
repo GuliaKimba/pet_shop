@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-const JWT = JSON.parse(localStorage.getItem('token'))
 const userID = JSON.parse(localStorage.getItem('userId'))
 
 export const fetchLikes = createAsyncThunk('likes/fetch', async function () {
+  const JWT = JSON.parse(localStorage.getItem('token'))
   const resp = await fetch('https://api.react-learning.ru/products', {
     headers: {
       authorization: `Bearer ${JWT}`,

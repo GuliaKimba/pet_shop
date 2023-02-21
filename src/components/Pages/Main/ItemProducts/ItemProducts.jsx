@@ -9,7 +9,7 @@ import {
   deleteProductFromCart,
 } from '../../../../redux/slices/cartSlice'
 import { AddFavorite, NoFavorite } from '../../../Buttons/Buttons'
-import { fetchLikes } from '../../../../redux/likesSlice/likesSlice'
+// import { fetchLikes } from '../../../../redux/likesSlice/likesSlice'
 
 export function ItemProducts({ ...item }) {
   const [userLike, setUserLike] = useState(false)
@@ -91,9 +91,9 @@ export function ItemProducts({ ...item }) {
     setUserLike(isLikeUser)
   }, [dispatch])
 
-  useEffect(() => {
-    dispatch(fetchLikes())
-  }, [dispatch])
+  // useEffect(() => {
+  //  dispatch(fetchLikes())
+  // }, [dispatch])
 
   const changeProduct = () => {
     navigate(`/product/${item._id}`)
