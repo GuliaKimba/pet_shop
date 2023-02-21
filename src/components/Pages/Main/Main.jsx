@@ -43,6 +43,7 @@ export const categorys = [
 export function Main() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [currentSort, setCurrentSort] = useState(() => searchParams.get('sort') ?? '')
+  console.log({ currentSort })
 
   const filters = useFilterContextData()
   const [items, setItems] = useState([])
@@ -84,7 +85,7 @@ export function Main() {
     queryFn: () =>
       getAllProd({
         query: filters.search,
-        sort: currentSort,
+        sort: filters.sort,
       }),
   })
   const navigate = useNavigate()
@@ -99,7 +100,7 @@ export function Main() {
     else {
       setSearchParams({ ...Object.fromEntries(searchParams.entries()), sort: currentSort })
     }
-  }, [searchParams])
+  }, [items])
 
   if (isLoading) return <div className={cn(stl.loading)}>Загрузка</div>
 
@@ -116,9 +117,7 @@ export function Main() {
       />
 
       <ListProducts
-        searchParams={searchParams}
         currentSort={currentSort}
-        getSort={getSort}
         items={items}
       />
     </div>

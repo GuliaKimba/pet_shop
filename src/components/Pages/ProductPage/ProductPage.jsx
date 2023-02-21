@@ -29,7 +29,7 @@ export function ProductPage() {
     isError,
     error,
   } = useQuery({
-    queryKey: ['currentProduct'],
+    queryKey: ['currentProduct', id],
     queryFn: () => getProductByID(id),
   })
 
